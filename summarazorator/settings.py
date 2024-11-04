@@ -28,7 +28,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'django-insecure-v6ylt*h6y$k##tpj*=rd!bo*_z)2)s)3&(#4(v#3b#*)5_c_md'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-cptvalleybe-summarazora-s50rt81q064.ws.codeinstitute-ide.net',
                 '.herokuapp.com']
@@ -36,6 +36,9 @@ ALLOWED_HOSTS = ['8000-cptvalleybe-summarazora-s50rt81q064.ws.codeinstitute-ide.
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Application definition
 INSTALLED_APPS = [
@@ -49,6 +52,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'django_summernote',
     'forum',
     'about',
