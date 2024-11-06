@@ -11,7 +11,7 @@ def about_srzr(request):
         if collaborate_form.is_valid():
             collaborate_form.save()
             messages.add_message(request, messages.SUCCESS,
-            "Collaboration request received! hank you for interest. We will get back to you as soon as we can.")
+            "Collaboration request received! Thank you for interest. We will get back to you as soon as we can.")
 
     """
     Renders the About Summarazorator page

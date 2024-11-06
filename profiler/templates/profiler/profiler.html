@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-4 text-center">
+            <img src="{% static 'images/nobody.jpg' %}" width="75%">
+        </div>
+        <div class="col-8">
+            <h2>User: {{ profiler.user | safe }}</h2>
+            <h3>Bio</h3>
+            {{ profiler.bio | safe }}
+
+            <h2>Last Posts</h2>
+            {% if profiler.last_posts.exists %}
+            <ul>
+                {% for post in profiler.last_posts.all %}
+                <li>{{ post.title }} - {{ post.excerpt }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No posts available.</p>
+            {% endif %}
+
+            <h2>Last Comments</h2>
+            {% if profiler.last_comments.exists %}
+            <ul>
+                {% for comment in profiler.last_comments.all %}
+                <li>{{ comment.body }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No comments available.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <p class="text-end"><em>Updated on: {{ profiler.updated_on }}</em></p>
+        </div>
+    </div>
+</div>
+{% endblock content %}
