@@ -21,7 +21,12 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-4 text-center">
-            <img src="{% static 'images/nobody.jpg' %}" width="75%">
+            <!-- <img src="{% static 'images/nobody.jpg' %}" width="75%"> -->
+            {% if "placeholder" in profiler.image.url %}
+            <img src="{% static 'images/nobody.jpg' %}" class="scale" alt="placeholder image">
+            {% else %}
+            <img src="{{ profiler.image.url }}" class="scale" alt="{{ profiler.image }}">
+            {% endif %}
         </div>
         <div class="col-8" id="profiler-data">
             <h2>User: {{ profiler.user | safe }}</h2>

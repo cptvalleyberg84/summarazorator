@@ -43,7 +43,7 @@ def profiler_page(request):
         },
     )
 
-
+@login_required 
 def profiler_edit(request, profiler_id):
     """
     View to edit the profiler
@@ -66,6 +66,7 @@ def profiler_edit(request, profiler_id):
         request, 
         "profiler/profiler_editor.html", 
         {
-            'profiler_form': profiler_form
+            'profiler_form': profiler_form,
+            'profiler': profiler
         },
     )
