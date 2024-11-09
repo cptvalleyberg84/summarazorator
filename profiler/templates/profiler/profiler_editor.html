@@ -59,5 +59,10 @@
     {% else %}
     <p>Log in to edit your profile.</p>
     {% endif %}
+
+    <!-- Deletor -->
+    {% if user == profiler.user %}
+    <a href="{% url 'profiler_delete' profiler.pk %}" class="btn btn-danger">Delete Profile</a>
+    {% endif %}
 </div>
 {% endblock content %}

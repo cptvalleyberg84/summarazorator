@@ -70,3 +70,25 @@ def profiler_edit(request, profiler_id):
             'profiler': profiler
         },
     )
+
+@login_required
+def profile_delete(request, pk):
+    profiler = get_object_or_404(Profiler, pk=pk)
+    
+    if request.user != profiler.user:
+        messages.error(request, 'You can only delete your own profile.')
+        return redirect('profiler')
+    
+    if request.method == 'POST':
+        user = profiler.user
+        user.delete()
+        
+        messages.success(request, 'Your account and all associated data have been deleted.')
+        return redirect('home')
+    
+    context = {
+        'profiler': profiler,
+        'post_count': Post.objects.filter(author=request.user).count(),
+        'comment_count': Comment.objects.filter(author=request.user).count(),
+    }
+    return render(request, 'profiler/profiler_deletor.html', context)

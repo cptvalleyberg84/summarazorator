@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2>Delete Profile</h2>
+            <div class="alert alert-danger">
+                <p>Are you sure you want to delete your profile? This will:</p>
+                <ul>
+                    <li>Delete your account ({{ profiler.user.username }})</li>
+                    <li>Delete your profile information and avatar</li>
+                    <li>Delete all your posts ({{ post_count }} posts)</li>
+                    <li>Delete all your comments ({{ comment_count }} comments)</li>
+                </ul>
+                <p><strong>This action cannot be undone!</strong></p>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Yes, Delete Everything</button>
+                <a href="{% url 'profiler_edit' profiler.pk %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
