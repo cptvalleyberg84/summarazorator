@@ -28,7 +28,7 @@
             <h3>Bio</h3>
             {{ profiler.bio | safe }}
 
-            <h2>Last Posts</h2>
+            <!-- <h2>Last Posts</h2>
             {% if profiler.last_posts.exists %}
             <ul>
                 {% for post in profiler.last_posts.all %}
@@ -48,7 +48,7 @@
             </ul>
             {% else %}
             <p>No comments available.</p>
-            {% endif %}
+            {% endif %} -->
         </div>
     </div>
     <div class="row">
@@ -56,9 +56,24 @@
             <p class="text-end"><em>Updated on: {{ profiler.updated_on }}</em></p>
         </div>
     </div>
+    <!-- form 1
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ profiler_form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form> -->
 
-    <!-- Edit Profiler -->
-    <a href="{% url 'profiler_edit' profiler.id %}" class="btn btn-edit">Edit Profile</a>
-
+    <!-- Form 2 -->
+    {% if user.is_authenticated %}
+    <h3>Edit your profile:</h3>
+    <p>Edit as: {{ user.username }}</p>
+    <form id="profilerForm" method="post" style="margin-top: 1.3em;">
+        {{ profiler_form | crispy }}
+        {% csrf_token %}
+        <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+    </form>
+    {% else %}
+    <p>Log in to edit your profile.</p>
+    {% endif %}
 </div>
 {% endblock content %}
