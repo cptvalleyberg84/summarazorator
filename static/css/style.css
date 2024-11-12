@@ -163,3 +163,65 @@ body {
 .approval {
     color: rgb(222, 146, 168);
 }
+
+/* reaction buttons */
+.comments-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.positive-comments-section,
+.negative-comments-section {
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+.comment {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.reaction-buttons {
+    margin-bottom: 20px;
+}
+
+.reaction-btn {
+    margin-right: 10px;
+}
+
+.comments-section {
+    height: 500px;
+    overflow-y: auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.positive-side {
+    border-right: 2px solid #28a745;
+    padding-right: 15px;
+}
+
+.negative-side {
+    border-left: 2px solid #dc3545;
+    padding-left: 15px;
+}
+
+.comment {
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.comment-actions {
+    margin-top: 5px;
+}
+
+.btn-edit {
+    margin-right: 5px;
+}

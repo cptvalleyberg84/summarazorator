@@ -1,15 +1,14 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.views.decorators.http import require_POST
 from .models import Post, Comment
 from .forms import CommentForm
 
 
 class PostList(generic.ListView):
-    # model = Post
     queryset = Post.objects.all()
-    # template_name = "post_list.html"
     template_name = 'forum/index.html'
     paginate_by = 6
 
@@ -29,15 +28,17 @@ def post_detail(request, slug):
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.author = request.user
             comment.post = post
+            comment.author = request.user
+            comment.comment_type = request.POST.get('comment_type', 'positive')
             comment.save()
             messages.add_message(
                 request, messages.SUCCESS,
                 'Comment submitted and awaiting approval'
             )
-
-    comment_form = CommentForm
+            return HttpResponseRedirect(request.path_info)
+    else:
+        comment_form = CommentForm
 
     return render(
         request,

@@ -35,7 +35,13 @@ class Comment(models.Model):
         ('positive', 'Positive'),
         ('negative', 'Negative'),
     ]
-    comment_type = models.CharField(max_length=8, choices=TYPE_CHOICES)
+    comment_type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='positive')
+
+    reactors = models.ManyToManyField(
+        User,
+        related_name='post_reactions',
+        blank=True
+    )
 
     class Meta:
         ordering = ["created_on"]

@@ -32,7 +32,7 @@
             <p>Do you like the way Summarazorator handles community? Have an interesting idea for a topic? Please
                 contact us using the form below, and let's see what we can do together.</p>
 
-            <form method="post">
+            <form method="post" id="collaboration-form">
                 {{ collaborate_form | crispy }}
                 {% csrf_token %}
                 <button class="btn btn-secondary" type="submit">Submit</button>
