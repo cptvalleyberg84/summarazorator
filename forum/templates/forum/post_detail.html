@@ -103,7 +103,7 @@
             <form id="commentForm" method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <textarea id="id_body" name="body" class="form-control" rows="4"></textarea>
+                    <textarea id="id_body" name="body" class="form-control" rows="4" minlength="12"></textarea>
                 </div>
                 <input type="hidden" name="comment_type" id="comment_type">
                 <button type="submit" id="submitBtn" class="btn">Submit</button>
