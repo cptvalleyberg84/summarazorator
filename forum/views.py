@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils.text import slugify
@@ -111,4 +112,19 @@ def create_post(request):
     return render(request, 'forum/create_post.html', {
         'form': form,
         'title': 'Create Post'
+    })
+
+def search_posts(request):
+    query = request.GET.get('searchbar')
+    if query:
+        posts = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query)
+        ).distinct()
+    else:
+        posts = []
+    
+    return render(request, 'forum/search_results.html', {
+        'posts': posts,
+        'query': query
     })
