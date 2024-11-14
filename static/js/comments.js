@@ -31,28 +31,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Handle positive reaction
     positiveBtn.addEventListener('click', function () {
-        commentForm.style.display = 'block';
-        submitBtn.className = 'btn btn-success';
-        commentTypeInput.value = 'positive';
-        submitBtn.innerHTML = '<i class="fas fa-thumbs-up"></i> Submit Positive Comment';
-        // Reset form action in case it was previously set for editing
-        commentFormElement.setAttribute('action', '');
+        const isAuthenticated = this.getAttribute('data-auth') === 'true';
+        if (isAuthenticated) {
+            commentForm.style.display = 'block';
+            submitBtn.className = 'btn btn-success';
+            commentTypeInput.value = 'positive';
+            submitBtn.innerHTML = '<i class="fas fa-thumbs-up"></i> Submit Positive Comment';
+            commentFormElement.setAttribute('action', '');
+            document.getElementById('id_body').focus();
+        } else {
+            alert("Please log in to comment.");
+        }
     });
 
     // Handle negative reaction
     negativeBtn.addEventListener('click', function () {
-        commentForm.style.display = 'block';
-        submitBtn.className = 'btn btn-danger';
-        commentTypeInput.value = 'negative';
-        submitBtn.innerHTML = '<i class="fas fa-thumbs-down"></i> Submit Negative Comment';
-        // Reset form action in case it was previously set for editing
-        commentFormElement.setAttribute('action', '');
+        const isAuthenticated = this.getAttribute('data-auth') === 'true';
+        if (isAuthenticated) {
+            commentForm.style.display = 'block';
+            submitBtn.className = 'btn btn-danger';
+            commentTypeInput.value = 'negative';
+            submitBtn.innerHTML = '<i class="fas fa-thumbs-down"></i> Submit Negative Comment';
+            commentFormElement.setAttribute('action', '');
+            document.getElementById('id_body').focus();
+        } else {
+            alert("Please log in to comment.");
+        }
     });
 
     // Handle edit functionality
     for (let button of editButtons) {
         button.addEventListener("click", (e) => {
-            let commentId = e.target.getAttribute("comment_id");
+            // Get the button element, accounting for event bubbling
+            let targetButton = e.target.closest('.btn-edit');
+            if (!targetButton) return; // Exit if click wasn't on or inside edit button
+
+            let commentId = targetButton.getAttribute("comment_id");
             let commentElement = document.getElementById(`comment${commentId}`);
             let commentContent = commentElement.querySelector('p').innerText.trim();
             let isPositive = commentElement.closest('.positive-side') !== null;
@@ -62,6 +76,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Set the comment text
             document.getElementById('id_body').value = commentContent;
+
+            // Focus on the textarea
+            document.getElementById('id_body').focus();
 
             // Update form styling and text based on comment type
             if (isPositive) {
@@ -78,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             commentFormElement.setAttribute('action', `edit_comment/${commentId}`);
         });
     }
+
 
     // Handle form submission
     commentFormElement.addEventListener('submit', function (e) {

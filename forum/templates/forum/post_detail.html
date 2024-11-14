@@ -78,18 +78,25 @@
     <!-- Reaction buttons row -->
     <div class="row mb-4">
         <div class="col-6 text-center">
-            <button id="positive-btn" class="btn btn-lg btn-success">
+            <button id="positive-btn" class="btn btn-lg btn-success" data-auth="{{ user.is_authenticated|lower }}">
                 <i class="fas fa-thumbs-up"></i> Like
             </button>
         </div>
         <div class="col-6 text-center">
-            <button id="negative-btn" class="btn btn-lg btn-danger">
+            <button id="negative-btn" class="btn btn-lg btn-danger" data-auth="{{ user.is_authenticated|lower }}">
                 <i class="fas fa-thumbs-down"></i> Dislike
             </button>
         </div>
     </div>
 
-
+    <!-- Please Log In Info -->
+    {% if not user.is_authenticated %}
+    <div class="alert alert-info">
+        <p>Please <a href="{% url 'account_login' %}">log in</a> or <a href="{% url 'account_signup' %}">register</a> to
+            post a comment.</p>
+    </div>
+    {% endif %}
+    {% if user.is_authenticated %}
     <!-- Single Comment Form -->
     <div class="comment-form-container" style="clear: both; width: 70%; margin: 20px auto;">
         <div id="comment-form" style="display: none;">
@@ -103,6 +110,7 @@
             </form>
         </div>
     </div>
+    {% endif %}
 
     <!-- Comments sections container -->
     <div class="row">
