@@ -225,3 +225,16 @@ body {
 .btn-edit {
     margin-right: 5px;
 }
+
+.post-reactions {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.post-reactions span {
+    display: inline-block;
+}
+
+.post-reactions i {
+    margin-right: 4px;
+}
