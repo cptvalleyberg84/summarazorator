@@ -37,7 +37,7 @@
             {% if profiler.last_posts.exists %}
             <ul>
                 {% for post in profiler.last_posts.all %}
-                <li>{{ post.title }} - {{ post.excerpt }}</li>
+                <li><a href="{% url 'post_detail' post.slug %}">{{ post.title }} - {{ post.excerpt }}</a></li>
                 {% endfor %}
             </ul>
             {% else %}
@@ -48,7 +48,9 @@
             {% if profiler.last_comments.exists %}
             <ul>
                 {% for comment in profiler.last_comments.all %}
-                <li>{{ comment.body }}</li>
+                <li>
+                    <a href="{% url 'post_detail' comment.post.slug %}#comment{{ comment.id }}">{{ comment.body }}</a>
+                </li>
                 {% endfor %}
             </ul>
             {% else %}
