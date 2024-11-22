@@ -7,7 +7,7 @@ from .models import Profiler
 from .forms import ProfilerForm
 
 
-@login_required  # Ensures only logged-in users can access this view
+@login_required
 def profiler_page(request):
     """
     Renders the Profiler page
@@ -15,17 +15,14 @@ def profiler_page(request):
     user = request.user
 
     try:
-        profiler = Profiler.objects.get(user=user)
+        profiler = Profiler.objects.get(profile_user=user)
     except Profiler.DoesNotExist:
-        # Optionally create a new Profiler instance for the user or handle missing profile
-        profiler = Profiler.objects.create(user=user)
+        profiler = Profiler.objects.create(profile_user=user)
 
-    # Set latest posts and comments
-    profiler.last_posts.set(Post.objects.filter(author=user).order_by('-created_on')[:3])
-    profiler.last_comments.set(Comment.objects.filter(author=user).order_by('-created_on')[:3])
+    profiler.profile_last_posts.set(Post.objects.filter(post_author=user).order_by('-post_created_on')[:3])
+    profiler.profile_last_comments.set(Comment.objects.filter(comment_author=user).order_by('-comment_created_on')[:3])
     profiler.save()
 
-    # Initialize or handle form submission
     profiler_form = ProfilerForm(instance=profiler)
     if request.method == "POST":
         profiler_form = ProfilerForm(data=request.POST, instance=profiler)
@@ -48,7 +45,7 @@ def profiler_edit(request, profiler_id):
     """
     View to edit the profiler
     """
-    profiler = get_object_or_404(Profiler, id=profiler_id, user=request.user)
+    profiler = get_object_or_404(Profiler, id=profiler_id, profile_user=request.user)
 
     if request.method == "POST":
         profiler_form = ProfilerForm(request.POST, request.FILES, instance=profiler)
@@ -73,14 +70,17 @@ def profiler_edit(request, profiler_id):
 
 @login_required
 def profile_delete(request, pk):
-    profiler = get_object_or_404(Profiler, pk=pk)
+    """
+    View to delete a profile
+    """
+    profiler = get_object_or_404(Profiler, pk=pk, profile_user=request.user)
     
-    if request.user != profiler.user:
+    if request.user != profiler.profile_user:
         messages.error(request, 'You can only delete your own profile.')
         return redirect('profiler')
     
     if request.method == 'POST':
-        user = profiler.user
+        user = profiler.profile_user
         user.delete()
         
         messages.success(request, 'Your account and all associated data have been deleted.')

@@ -15,33 +15,29 @@ class PostList(generic.ListView):
     template_name = 'forum/index.html'
     paginate_by = 6
 
-def post_detail(request, slug):
+def post_detail(request, post_slug):
     """
     Display individual :model:'forum.Post'.
     Template :template:'forum/post_detail.html'
     """
 
-    queryset = Post.objects.filter(status=1)
-    post = get_object_or_404(queryset, slug=slug)
+    queryset = Post.objects.filter(post_status=1)
+    post = get_object_or_404(queryset, post_slug=post_slug)
 
-    comments = post.comments.all().order_by('-created_on')
-    comment_count = post.comments.filter(approved=True).count()
+    comments = post.comments.order_by('-comment_created_on')
 
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.post = post
-            comment.author = request.user
+            comment.parent_post = post
+            comment.comment_author = request.user
             comment.comment_type = request.POST.get('comment_type', 'positive')
             comment.save()
-            messages.add_message(
-                request, messages.SUCCESS,
-                'Comment submitted and awaiting approval'
-            )
+            messages.success(request, 'Comment submitted.')
             return HttpResponseRedirect(request.path_info)
     else:
-        comment_form = CommentForm
+        comment_form = CommentForm()
 
     return render(
         request,
@@ -49,51 +45,47 @@ def post_detail(request, slug):
         {
             'post': post,
             'comments': comments,
-            'comment_count': comment_count,
             'comment_form': comment_form,
         },
     )
 
 
-def comment_edit(request, slug, comment_id):
+def comment_edit(request, post_slug, comment_id):
     """
     view to edit comments
     """
     if request.method == "POST":
-
-        queryset = Post.objects.filter(status=1)
-        post = get_object_or_404(queryset, slug=slug)
+        queryset = Post.objects.filter(post_status=1)
+        post = get_object_or_404(queryset, post_slug=post_slug)
         comment = get_object_or_404(Comment, pk=comment_id)
         comment_form = CommentForm(data=request.POST, instance=comment)
 
-        if comment_form.is_valid() and comment.author == request.user:
+        if comment_form.is_valid() and comment.comment_author == request.user:
             comment = comment_form.save(commit=False)
-            comment.post = post
-            comment.approved = False
+            comment.parent_post = post
             comment.save()
             messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
         else:
             messages.add_message(request, messages.ERROR, 'Error updating comment!')
 
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+    return HttpResponseRedirect(reverse('post_detail', args=[post_slug]))
 
 
-def comment_delete(request, slug, comment_id):
+def comment_delete(request, post_slug, comment_id):
     """
     view to delete comment
     """
-    queryset = Post.objects.filter(status=1)
-    post = get_object_or_404(queryset, slug=slug)
+    queryset = Post.objects.filter(post_status=1)
+    post = get_object_or_404(queryset, post_slug=post_slug)
     comment = get_object_or_404(Comment, pk=comment_id)
 
-    if comment.author == request.user:
+    if comment.comment_author == request.user:
         comment.delete()
         messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
     else:
         messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
 
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
-
+    return HttpResponseRedirect(reverse('post_detail', args=[post_slug]))
 
 
 @login_required
@@ -102,10 +94,10 @@ def create_post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
-            post.slug = slugify(post.title)
+            post.post_author = request.user
+            post.post_slug = slugify(post.post_title)
             post.save()
-            return redirect('post_detail', slug=post.slug)
+            return redirect('post_detail', post_slug=post.post_slug)
     else:
         form = PostForm()
     
@@ -114,12 +106,13 @@ def create_post(request):
         'title': 'Create Post'
     })
 
+
 def search_posts(request):
     query = request.GET.get('searchbar')
     if query:
         posts = Post.objects.filter(
-            Q(title__icontains=query) |
-            Q(content__icontains=query)
+            Q(post_title__icontains=query) |
+            Q(post_content__icontains=query)
         ).distinct()
     else:
         posts = []

@@ -278,3 +278,18 @@ body {
     display: flex;
     gap: 8px;
 }
+
+.comment-body {
+    white-space: pre-line;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.comment-form-container textarea,
+.modal-body textarea {
+    white-space: pre-line;
+    min-height: 100px;
+    max-height: 300px;
+}

@@ -21,37 +21,41 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-4 text-center">
-            <!-- <img src="{% static 'images/nobody.jpg' %}" width="75%"> -->
-            {% if "placeholder" in profiler.image.url %}
+            {% if "placeholder" in profiler.profile_image.url %}
             <img src="{% static 'images/nobody.jpg' %}" class="scale" alt="placeholder image">
             {% else %}
-            <img src="{{ profiler.image.url }}" class="scale" alt="{{ profiler.image }}">
+            <img src="{{ profiler.profile_image.url }}" class="scale" alt="{{ profiler.profile_image }}">
             {% endif %}
         </div>
         <div class="col-8" id="profiler-data">
-            <h2>User: {{ profiler.user | safe }}</h2>
+            <h2>User: {{ profiler.profile_user | safe }}</h2>
             <h3>Bio</h3>
-            {{ profiler.bio | safe }}
+            {{ profiler.profile_bio | safe }}
 
             <h2>Last Posts</h2>
-            {% if profiler.last_posts.exists %}
+            {% if profiler.profile_last_posts.exists %}
             <ul>
-                {% for post in profiler.last_posts.all %}
-                <li><a href="{% url 'post_detail' post.slug %}">{{ post.title }} - {{ post.excerpt }}</a></li>
+                {% with posts=profiler.profile_last_posts.all %}
+                {% for post in posts reversed %}
+                <li><a href="{% url 'post_detail' post.post_slug %}">{{ post.post_title }} - {{ post.post_excerpt }}</a>
+                </li>
                 {% endfor %}
+                {% endwith %}
             </ul>
             {% else %}
             <p>No posts available.</p>
             {% endif %}
 
             <h2>Last Comments</h2>
-            {% if profiler.last_comments.exists %}
+            {% if profiler.profile_last_comments.exists %}
             <ul>
-                {% for comment in profiler.last_comments.all %}
+                {% with comments=profiler.profile_last_comments.all %}
+                {% for comment in comments reversed %}
                 <li>
-                    <a href="{% url 'post_detail' comment.post.slug %}#comment{{ comment.id }}">{{ comment.body }}</a>
+                    <a href="{% url 'post_detail' comment.parent_post.post_slug %}">{{ comment.comment_body }}</a>
                 </li>
                 {% endfor %}
+                {% endwith %}
             </ul>
             {% else %}
             <p>No comments available.</p>

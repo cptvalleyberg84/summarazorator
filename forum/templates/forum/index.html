@@ -6,7 +6,6 @@
 <!-- index.html content starts here -->
 <div class="container-fluid">
     <div class="row">
-
         <!-- Blog Entries Column -->
         <div class="col-12 mt-3 left">
             <div class="row">
@@ -15,33 +14,32 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="image-container">
-
-                                {% if "placeholder" in post.featured_image.url %}
+                                {% if "placeholder" in post.post_featured_image.url %}
                                 <img class="card-img-top" src="{% static 'images/default.png' %}"
                                     alt="placeholder image">
                                 {% else %}
-                                <img class="card-img-top" src=" {{ post.featured_image.url }}" alt="{{ post.title }}">
+                                <img class="card-img-top" src="{{ post.post_featured_image.url }}"
+                                    alt="{{ post.post_title }}">
                                 {% endif %}
 
                                 <div class="image-flash">
-                                    <!-- <p class="author">Author: {{ post.author }}</p> -->
                                     <p class="author">
                                         <span class="profile-pic-wrapper">
-                                            {% if post.author.profiler.image %}
-                                            <img src="{{ post.author.profiler.image.url }}"
-                                                alt="{{ post.author.username }}" class="profile-pic-small">
+                                            {% if post.post_author.profiler.profile_image.url != 'placeholder' %}
+                                            <img src="{{ post.post_author.profiler.profile_image.url }}"
+                                                alt="{{ post.post_author.username }}" class="profile-pic-small">
                                             {% else %}
                                             <img src="{% static 'images/default.png' %}"
-                                                alt="{{ post.author.username }}" class="profile-pic-small">
+                                                alt="{{ post.post_author.username }}" class="profile-pic-small">
                                             {% endif %}
-                                            Author: {{ post.author }}
+                                            Author: {{ post.post_author }}
                                         </span>
                                     </p>
                                 </div>
                             </div>
-                            <a href="{% url 'post_detail' post.slug %}" class="post-link">
-                                <h2 class="card-title">{{ post.title }}</h2>
-                                <p class="card-text">{{ post.excerpt }}</p>
+                            <a href="{% url 'post_detail' post.post_slug %}" class="post-link">
+                                <h2 class="card-title">{{ post.post_title }}</h2>
+                                <p class="card-text">{{ post.post_excerpt }}</p>
                             </a>
                             <!-- Add the likes/dislikes count -->
                             <div class="d-flex justify-content-between align-items-center">
@@ -56,10 +54,7 @@
                                 </div>
                             </div>
                             <hr />
-
-                            <hr />
-                            <p class="card-text text-muted h6">{{ post.created_on}}
-                            </p>
+                            <p class="card-text text-muted h6">{{ post.post_created_on }}</p>
                         </div>
                     </div>
                 </div>
@@ -68,18 +63,15 @@
             <div class="row">
                 {% endif %}
                 {% endfor %}
-
             </div>
         </div>
     </div>
     {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-
             {% if page_obj.has_previous %}
             <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> PREV &laquo;</a></li>
             {% endif %}
-
             {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
             {% endif %}
@@ -87,6 +79,5 @@
     </nav>
     {% endif %}
 </div>
-
 <!-- index.html content ends here -->
 {% endblock %}
