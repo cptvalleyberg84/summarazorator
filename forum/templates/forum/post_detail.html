@@ -13,7 +13,20 @@
                 <!-- Post title goes in these h1 tags -->
                 <h1 class="post-title">{{ post.title }}</h1>
                 <!-- Post author goes before the | the post's created date goes after -->
-                <p class="post-subtitle">{{ post.author }} | {{ post.created_on }}</p>
+                <!-- <p class="post-subtitle">{{ post.author }} | {{ post.created_on }}</p> -->
+                <p class="post-subtitle">
+                    <span class="profile-pic-wrapper">
+                        {% if post.author.profiler.image %}
+                        <img src="{{ post.author.profiler.image.url }}" alt="{{ post.author.username }}"
+                            class="profile-pic-small">
+                        {% else %}
+                        <img src="{% static 'images/default.png' %}" alt="{{ post.author.username }}"
+                            class="profile-pic-small">
+                        {% endif %}
+                        {{ post.author }}
+
+                        | {{ post.created_on }}
+                    </span></p>
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
                 {% if "placeholder" in post.featured_image.url %}
@@ -126,13 +139,24 @@
                         {% if comment.comment_type == 'positive' %}
                         <div class="comment" id="comment{{ comment.id }}">
                             <p>{{ comment.body }}</p>
-                            <small>By {{ comment.author }} on {{ comment.created_on }}</small>
-                            {% if user == comment.author %}
-                            <div class="comment-actions">
-                                <button class="btn btn-sm btn-edit" comment_id="{{ comment.id }}">Edit</button>
-                                <button class="btn btn-sm btn-delete" comment_id="{{ comment.id }}">Delete</button>
+                            <div class="comment-meta">
+                                <span class="profile-pic-wrapper">
+                                    {% if comment.author.profiler.image %}
+                                    <img src="{{ comment.author.profiler.image.url }}"
+                                        alt="{{ comment.author.username }}" class="profile-pic-small">
+                                    {% else %}
+                                    <img src="{% static 'images/default.png' %}" alt="{{ comment.author.username }}"
+                                        class="profile-pic-small">
+                                    {% endif %}
+                                    <small>By {{ comment.author }} on {{ comment.created_on }}</small>
+                                </span>
+                                {% if user == comment.author %}
+                                <div class="comment-actions">
+                                    <button class="btn btn-sm btn-edit" comment_id="{{ comment.id }}">Edit</button>
+                                    <button class="btn btn-sm btn-delete" comment_id="{{ comment.id }}">Delete</button>
+                                </div>
+                                {% endif %}
                             </div>
-                            {% endif %}
                         </div>
                         {% endif %}
                         {% endfor %}
@@ -153,13 +177,24 @@
                         {% if comment.comment_type == 'negative' %}
                         <div class="comment" id="comment{{ comment.id }}">
                             <p>{{ comment.body }}</p>
-                            <small>By {{ comment.author }} on {{ comment.created_on }}</small>
-                            {% if user == comment.author %}
-                            <div class="comment-actions">
-                                <button class="btn btn-sm btn-edit" comment_id="{{ comment.id }}">Edit</button>
-                                <button class="btn btn-sm btn-delete" comment_id="{{ comment.id }}">Delete</button>
+                            <div class="comment-meta">
+                                <span class="profile-pic-wrapper">
+                                    {% if comment.author.profiler.image %}
+                                    <img src="{{ comment.author.profiler.image.url }}"
+                                        alt="{{ comment.author.username }}" class="profile-pic-small">
+                                    {% else %}
+                                    <img src="{% static 'images/default.png' %}" alt="{{ comment.author.username }}"
+                                        class="profile-pic-small">
+                                    {% endif %}
+                                    <small>By {{ comment.author }} on {{ comment.created_on }}</small>
+                                </span>
+                                {% if user == comment.author %}
+                                <div class="comment-actions">
+                                    <button class="btn btn-sm btn-edit" comment_id="{{ comment.id }}">Edit</button>
+                                    <button class="btn btn-sm btn-delete" comment_id="{{ comment.id }}">Delete</button>
+                                </div>
+                                {% endif %}
                             </div>
-                            {% endif %}
                         </div>
                         {% endif %}
                         {% endfor %}

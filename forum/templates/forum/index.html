@@ -24,7 +24,19 @@
                                 {% endif %}
 
                                 <div class="image-flash">
-                                    <p class="author">Author: {{ post.author }}</p>
+                                    <!-- <p class="author">Author: {{ post.author }}</p> -->
+                                    <p class="author">
+                                        <span class="profile-pic-wrapper">
+                                            {% if post.author.profiler.image %}
+                                            <img src="{{ post.author.profiler.image.url }}"
+                                                alt="{{ post.author.username }}" class="profile-pic-small">
+                                            {% else %}
+                                            <img src="{% static 'images/default.png' %}"
+                                                alt="{{ post.author.username }}" class="profile-pic-small">
+                                            {% endif %}
+                                            Author: {{ post.author }}
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
                             <a href="{% url 'post_detail' post.slug %}" class="post-link">

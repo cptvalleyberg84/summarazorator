@@ -238,3 +238,43 @@ body {
 .post-reactions i {
     margin-right: 4px;
 }
+
+/* Profile Picture Styles */
+.profile-pic-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.profile-pic-wrapper {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Comment Section Styles */
+.comment {
+    padding: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.comment:last-child {
+    border-bottom: none;
+}
+
+.comment-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.comment-meta small {
+    color: #6c757d;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 8px;
+}
