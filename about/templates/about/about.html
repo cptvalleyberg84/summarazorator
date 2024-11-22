@@ -7,16 +7,16 @@
     <div class="row">
         <div class="col-12 col-md-4 text-center">
 
-            {% if "placeholder" in about.profile_image.url %}
-            <img src="{% static 'images/rzrtr-logo.jpg' %}" width="75%" alt="placeholder image">
+            {% if "placeholder" in about.about_logo_image.url %}
+            <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" width="100%" alt="placeholder">
             {% else %}
-            <img src="{{ about.profile_image.url }}" width="75%" alt="{{ about.title }}">
+            <img src="{{ about.about_logo_image.url }}" width="75%" alt="{{ about.about_title }}">
             {% endif %}
 
         </div>
         <div class="col-12 col-md-8">
-            <h2>{{ about.title }}</h2>
-            {{ about.content | safe }}
+            <h2>{{ about.about_title }}</h2>
+            <p>{{ about.about_content | safe }}</p>
         </div>
     </div>
     <div class="row">

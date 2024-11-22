@@ -3,7 +3,7 @@ from django.contrib import messages
 from .models import About
 from .forms import CollaborateForm
 
-# Create your views here.
+
 def about_srzr(request):
 
     if request.method == "POST":
@@ -16,7 +16,7 @@ def about_srzr(request):
     """
     Renders the About Summarazorator page
     """
-    about = About.objects.all().order_by('-updated_on').first()
+    about = About.objects.all().order_by('-about_updated_on').first()
     collaborate_form = CollaborateForm()
 
     return render(
