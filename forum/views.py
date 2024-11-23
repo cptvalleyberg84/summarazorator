@@ -11,19 +11,22 @@ from .forms import CommentForm, PostForm
 
 
 class PostList(generic.ListView):
+    """Display list of all posts on the index page."""
     queryset = Post.objects.all()
     template_name = 'forum/index.html'
     paginate_by = 6
 
+
 def post_detail(request, post_slug):
     """
-    Display individual :model:'forum.Post'.
-    Template :template:'forum/post_detail.html'
-    """
+    Display individual post and handle comment submission.
 
+    Args:
+        request: The HTTP request
+        post_slug: The slug of the post to display
+    """
     queryset = Post.objects.filter(post_status=1)
     post = get_object_or_404(queryset, post_slug=post_slug)
-
     comments = post.comments.order_by('-comment_created_on')
 
     if request.method == "POST":
@@ -52,7 +55,12 @@ def post_detail(request, post_slug):
 
 def comment_edit(request, post_slug, comment_id):
     """
-    view to edit comments
+    Handle editing of existing comments.
+
+    Args:
+        request: The HTTP request
+        post_slug: The slug of the parent post
+        comment_id: The ID of the comment to edit
     """
     if request.method == "POST":
         queryset = Post.objects.filter(post_status=1)
@@ -73,7 +81,12 @@ def comment_edit(request, post_slug, comment_id):
 
 def comment_delete(request, post_slug, comment_id):
     """
-    view to delete comment
+    Handle deletion of existing comments.
+
+    Args:
+        request: The HTTP request
+        post_slug: The slug of the parent post
+        comment_id: The ID of the comment to delete
     """
     queryset = Post.objects.filter(post_status=1)
     post = get_object_or_404(queryset, post_slug=post_slug)
@@ -90,6 +103,7 @@ def comment_delete(request, post_slug, comment_id):
 
 @login_required
 def create_post(request):
+    """Handle creation of new posts."""
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -100,7 +114,7 @@ def create_post(request):
             return redirect('post_detail', post_slug=post.post_slug)
     else:
         form = PostForm()
-    
+
     return render(request, 'forum/create_post.html', {
         'form': form,
         'title': 'Create Post'
@@ -108,6 +122,12 @@ def create_post(request):
 
 
 def search_posts(request):
+    """
+    Search for posts based on title or content.
+
+    Args:
+        request: The HTTP request containing the search query
+    """
     query = request.GET.get('searchbar')
     if query:
         posts = Post.objects.filter(
@@ -116,7 +136,7 @@ def search_posts(request):
         ).distinct()
     else:
         posts = []
-    
+
     return render(request, 'forum/search_results.html', {
         'posts': posts,
         'query': query

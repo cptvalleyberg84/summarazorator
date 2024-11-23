@@ -36,7 +36,7 @@
             {% if profiler.profile_last_posts.exists %}
             <ul>
                 {% with posts=profiler.profile_last_posts.all %}
-                {% for post in posts reversed %}
+                {% for post in posts %}
                 <li><a href="{% url 'post_detail' post.post_slug %}">{{ post.post_title }} - {{ post.post_excerpt }}</a>
                 </li>
                 {% endfor %}
@@ -50,7 +50,7 @@
             {% if profiler.profile_last_comments.exists %}
             <ul>
                 {% with comments=profiler.profile_last_comments.all %}
-                {% for comment in comments reversed %}
+                {% for comment in comments %}
                 <li>
                     <a href="{% url 'post_detail' comment.parent_post.post_slug %}">{{ comment.comment_body }}</a>
                 </li>
