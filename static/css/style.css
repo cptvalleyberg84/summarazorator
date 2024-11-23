@@ -293,3 +293,19 @@ body {
     min-height: 100px;
     max-height: 300px;
 }
+
+/* Footer styles */
+.social-links a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: rgb(40, 165, 40);
+    text-decoration: none;
+}
+
+.social-links i {
+    font-size: 1.5rem;
+}
