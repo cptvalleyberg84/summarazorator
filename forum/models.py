@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from django.core.exceptions import ValidationError
 
 
 STATUS_CHOICES = (
@@ -14,6 +15,11 @@ COMMENT_TYPE_CHOICES = [
 ]
 
 
+def validate_not_empty(value):
+    if not value.strip():
+        raise ValidationError('This field cannot be empty or just whitespace.')
+
+
 class Post(models.Model):
     """
     Model representing a forum post.
@@ -23,7 +29,8 @@ class Post(models.Model):
     post_title = models.CharField(
         max_length=200,
         unique=True,
-        help_text="Title of the post"
+        help_text="Title of the post",
+        validators=[validate_not_empty]
     )
     post_slug = models.SlugField(
         max_length=200,
