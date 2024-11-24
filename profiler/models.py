@@ -17,7 +17,8 @@ class Profiler(models.Model):
     )
     profile_image = CloudinaryField(
         'image',
-        default='placeholder'
+        default='static/images/default.png',
+        folder='profile_pics'
     )
     profile_bio = models.TextField(
         blank=True,
