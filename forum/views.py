@@ -121,6 +121,62 @@ def create_post(request):
     })
 
 
+@login_required
+def post_edit(request, post_slug):
+    """
+    Handle editing of existing posts.
+
+    Args:
+        request: The HTTP request
+        post_slug: The slug of the post to edit
+    """
+    post = get_object_or_404(Post, post_slug=post_slug)
+
+    if post.post_author != request.user:
+        messages.error(request, 'You can only edit your own posts!')
+        return HttpResponseRedirect(reverse('post_detail', args=[post_slug]))
+
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.post_slug = slugify(post.post_title)
+            post.save()
+            messages.success(request, 'Post updated successfully!')
+            return HttpResponseRedirect(reverse('post_detail', args=[post.post_slug]))
+    else:
+        form = PostForm(instance=post)
+
+    return render(
+        request,
+        'forum/edit_post.html',
+        {
+            'form': form,
+            'post': post,
+        },
+    )
+
+
+@login_required
+def post_delete(request, post_slug):
+    """
+    Handle deletion of existing posts.
+
+    Args:
+        request: The HTTP request
+        post_slug: The slug of the post to delete
+    """
+    post = get_object_or_404(Post, post_slug=post_slug)
+
+    if post.post_author != request.user:
+        messages.error(request, 'You can only delete your own posts!')
+        return HttpResponseRedirect(reverse('post_detail', args=[post_slug]))
+
+    post.delete()
+    messages.success(request, 'Post deleted successfully!')
+    return HttpResponseRedirect(reverse('home'))
+
+
 def search_posts(request):
     """
     Search for posts based on title or content.
