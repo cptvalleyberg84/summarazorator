@@ -245,6 +245,18 @@ body {
     margin-right: 4px;
 }
 
+.post-timestamps {
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.post-timestamps .text-muted {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
 /* Profile Picture Styles */
 .profile-pic-small {
     width: 32px;

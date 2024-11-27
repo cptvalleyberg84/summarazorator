@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.http import require_POST
+from django.utils import timezone
 from django.utils.text import slugify
 from .models import Post, Comment
 from .forms import CommentForm, PostForm
@@ -141,6 +142,7 @@ def post_edit(request, post_slug):
         if form.is_valid():
             post = form.save(commit=False)
             post.post_slug = slugify(post.post_title)
+            post.post_updated_at = timezone.now()
             post.save()
             messages.success(request, 'Post updated successfully!')
             return HttpResponseRedirect(reverse('post_detail', args=[post.post_slug]))

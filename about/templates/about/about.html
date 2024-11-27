@@ -6,24 +6,23 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-12 col-md-4 text-center">
-
-            {% if "placeholder" in about.about_logo_image.url %}
-            <img src="{% static 'images/rzrtr-logo.jpg' %}" width="75%" alt="placeholder image">
-            {% else %}
-            <img src="{{ about.about_logo_image.url }}" width="75%" alt="{{ about.about_title }}">
-            {% endif %}
-
+            <img src="{% static 'images/rzrtr-logo.jpg' %}" width="75%" alt="Summarazorator Logo">
         </div>
         <div class="col-12 col-md-8">
+            {% if about %}
             <h2>{{ about.about_title }}</h2>
             <p>{{ about.about_content | safe }}</p>
+            {% else %}
+            <h2>Welcome to Summarazorator</h2>
+            <p>Content coming soon...</p>
+            {% endif %}
         </div>
     </div>
     <div class="row">
         <div class="col text-right">
-
-
-            <p class="text-end"><em>Updated on: {{ about.updated_on }}</em></p>
+            {% if about %}
+            <p class="text-end"><em>Updated on: {{ about.about_updated_on }}</em></p>
+            {% endif %}
         </div>
     </div>
     <div class="row justify-content-center">

@@ -19,7 +19,12 @@
                             alt="{{ post.post_author.username }}" class="profile-pic-small">
                         {% endif %}
                         <a href="{% url 'view_profile' post.post_author.username %}">{{ post.post_author }}</a>
-                        | {{ post.post_created_on }}
+                        <div class="post-timestamps">
+                            <div>Created: {{ post.post_created_on }}</div>
+                            {% if post.post_updated_at|date:"U" > post.post_created_on|date:"U" %}
+                            <div class="text-muted">Last edited: {{ post.post_updated_at }}</div>
+                            {% endif %}
+                        </div>
                     </span>
                 </p>
             </div>
@@ -43,10 +48,10 @@
                 </p>
                 {% if user.is_authenticated and post.post_author == user %}
                 <div class="mt-3 text-end">
-                    <a href="{% url 'post_edit' post.post_slug %}" class="btn btn-primary">
+                    <a href="{% url 'post_edit' post.post_slug %}" class="btn btn-edit">
                         <i class="fas fa-edit"></i> Edit Post
                     </a>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-danger-post" data-bs-toggle="modal"
                         data-bs-target="#deletePostModal">
                         <i class="fas fa-trash"></i> Delete Post
                     </button>
@@ -176,14 +181,12 @@
                                         {{ comment.comment_author }}
                                     </a>
                                 </span>
-                                <small>
-                                    By <a
-                                        href="{% url 'view_profile' comment.comment_author.username %}">{{ comment.comment_author }}</a>
-                                    on {{ comment.comment_created_on }}
+                                <div class="post-timestamps">
+                                    <div>Posted on {{ comment.comment_created_on }}</div>
                                     {% if comment.comment_updated_at|date:"U" > comment.comment_created_on|date:"U" %}
-                                    <br><em>(edited on {{ comment.comment_updated_at }})</em>
+                                    <div class="text-muted">Last edited: {{ comment.comment_updated_at }}</div>
                                     {% endif %}
-                                </small>
+                                </div>
                                 {% if user == comment.comment_author %}
                                 <div class="comment-actions">
                                     <button class="btn btn-edit" data-bs-toggle="modal"
@@ -228,14 +231,12 @@
                                         {{ comment.comment_author }}
                                     </a>
                                 </span>
-                                <small>
-                                    By <a
-                                        href="{% url 'view_profile' comment.comment_author.username %}">{{ comment.comment_author }}</a>
-                                    on {{ comment.comment_created_on }}
+                                <div class="post-timestamps">
+                                    <div>Posted on {{ comment.comment_created_on }}</div>
                                     {% if comment.comment_updated_at|date:"U" > comment.comment_created_on|date:"U" %}
-                                    <br><em>(edited on {{ comment.comment_updated_at }})</em>
+                                    <div class="text-muted">Last edited: {{ comment.comment_updated_at }}</div>
                                     {% endif %}
-                                </small>
+                                </div>
                                 {% if user == comment.comment_author %}
                                 <div class="comment-actions">
                                     <button class="btn btn-edit" data-bs-toggle="modal"
