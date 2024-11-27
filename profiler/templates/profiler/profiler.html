@@ -21,10 +21,12 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-4 text-center">
-            {% if "placeholder" in profiler.profile_image.url %}
-            <img src="{% static 'images/nobody.jpg' %}" class="scale" alt="placeholder image">
+            {% if "static/images/default.png" in profiler.profile_image.url %}
+            <img src="{% static 'images/default.png' %}" alt="{{ profiler.profile_user.username }}'s profile picture"
+                class="scale">
             {% else %}
-            <img src="{{ profiler.profile_image.url }}" class="scale" alt="{{ profiler.profile_image }}">
+            <img src="{{ profiler.profile_image.url }}" alt="{{ profiler.profile_user.username }}'s profile picture"
+                class="scale">
             {% endif %}
         </div>
         <div class="col-8" id="profiler-data">
@@ -64,12 +66,14 @@
     </div>
     <div class="row">
         <div class="col text-right">
-            <p class="text-end"><em>Updated on: {{ profiler.updated_on }}</em></p>
+            <p class="text-end"><em>Updated on: {{ profiler.profile_updated_on }}</em></p>
         </div>
     </div>
 
     <!-- Edit Profiler -->
+    {% if is_owner %}
     <a href="{% url 'profiler_edit' profiler.id %}" class="btn btn-edit">Edit Profile</a>
+    {% endif %}
 
 </div>
 {% endblock content %}

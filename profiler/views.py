@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from forum.models import Post, Comment
 from .models import Profiler
 from .forms import ProfilerForm
@@ -119,3 +120,32 @@ def profile_delete(request, pk):
         'comment_count': Comment.objects.filter(author=request.user).count(),
     }
     return render(request, 'profiler/profiler_deletor.html', context)
+
+
+def view_profile(request, username):
+    """
+    View a user's profile page.
+    Displays profile information for any user, while restricting edit access
+    to profile owners only.
+    """
+    user = get_object_or_404(User, username=username)
+    profiler = get_object_or_404(Profiler, profile_user=user)
+    
+    profiler.profile_last_posts.set(
+        Post.objects.filter(post_author=user)
+        .order_by('-post_created_on')[:3]
+    )
+    profiler.profile_last_comments.set(
+        Comment.objects.filter(comment_author=user)
+        .order_by('-comment_created_on')[:3]
+    )
+    profiler.save()
+
+    return render(
+        request,
+        "profiler/profiler.html",
+        {
+            "profiler": profiler,
+            "is_owner": request.user == user if request.user.is_authenticated else False,
+        },
+    )

@@ -47,7 +47,8 @@ body {
     bottom: 5%;
     min-width: 30%;
     left: -2px;
-    background-color: #188181;
+    border-radius: 5px;
+    background-color: #188181e1;
 }
 
 .scale {
@@ -258,6 +259,18 @@ body {
     align-items: center;
 }
 
+/* Username links */
+.profile-pic-wrapper a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.profile-pic-wrapper a:hover {
+    color: #188181;
+    text-decoration: none;
+}
+
 /* Comment Section Styles */
 .comment {
     padding: 15px;
@@ -297,6 +310,18 @@ body {
     white-space: pre-line;
     min-height: 100px;
     max-height: 300px;
+}
+
+/* Index page author links */
+.image-flash .author a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.image-flash .author a:hover {
+    color: #caccce;
+    text-decoration: none;
 }
 
 /* Footer styles */

@@ -21,18 +21,18 @@
                                 <img class="card-img-top" src="{{ post.post_featured_image.url }}"
                                     alt="{{ post.post_title }}">
                                 {% endif %}
-
                                 <div class="image-flash">
                                     <p class="author">
-                                        <span class="profile-pic-wrapper">
-                                            {% if post.post_author.profiler.profile_image.url != 'placeholder' %}
-                                            <img src="{{ post.post_author.profiler.profile_image.url }}"
-                                                alt="{{ post.post_author.username }}" class="profile-pic-small">
-                                            {% else %}
-                                            <img src="{% static 'images/default.png' %}"
-                                                alt="{{ post.post_author.username }}" class="profile-pic-small">
-                                            {% endif %}
-                                            Author: {{ post.post_author }}
+                                        <span class="profile-pic-wrapper"><a
+                                                href="{% url 'view_profile' post.post_author.username %}">
+                                                {% if "static/images/default.png" in post.post_author.profiler.profile_image.url %}
+                                                <img src="{% static 'images/default.png' %}"
+                                                    alt="{{ post.post_author.username }}" class="profile-pic-small">
+                                                {% else %}
+                                                <img src="{{ post.post_author.profiler.profile_image.url }}"
+                                                    alt="{{ post.post_author.username }}" class="profile-pic-small">
+                                                {% endif %}
+                                                {{ post.post_author }}</a>
                                         </span>
                                     </p>
                                 </div>
@@ -70,7 +70,7 @@
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> PREV &laquo;</a></li>
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> &laquo; PREV </a></li>
             {% endif %}
             {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
