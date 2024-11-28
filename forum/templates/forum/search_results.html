@@ -11,7 +11,8 @@
         <div class="card-body">
             <h5 class="card-title">{{ post.post_title|safe }}</h5>
             <p class="card-text">{{ post.post_content|safe|truncatewords:30 }}</p>
-            <a href="{% url 'post_detail' post.post_slug %}" class="btn btn-primary">Read More</a>
+            <a href="{% url 'post_detail' post.post_slug %}" class="btn btn-primary"
+                aria-label="Read more about {{ post.post_title }}">Read More</a>
         </div>
     </div>
     {% endfor %}

@@ -18,7 +18,8 @@
                         <img src="{{ post.post_author.profiler.profile_image.url }}"
                             alt="{{ post.post_author.username }}" class="profile-pic-small">
                         {% endif %}
-                        <a href="{% url 'view_profile' post.post_author.username %}">{{ post.post_author }}</a>
+                        <a href="{% url 'view_profile' post.post_author.username %}"
+                            aria-label="View {{ post.post_author.username }}'s profile">{{ post.post_author }}</a>
                         <div class="post-timestamps">
                             <div>Created: {{ post.post_created_on }}</div>
                             {% if post.post_updated_at|date:"U" > post.post_created_on|date:"U" %}
@@ -48,10 +49,10 @@
                 </p>
                 {% if user.is_authenticated and post.post_author == user %}
                 <div class="mt-3 text-end">
-                    <a href="{% url 'post_edit' post.post_slug %}" class="btn btn-edit">
+                    <a href="{% url 'post_edit' post.post_slug %}" class="btn btn-primary" aria-label="Edit this post">
                         <i class="fas fa-edit"></i> Edit Post
                     </a>
-                    <button type="button" class="btn btn-danger-post" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#deletePostModal">
                         <i class="fas fa-trash"></i> Delete Post
                     </button>
@@ -75,7 +76,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'post_delete' post.post_slug %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'post_delete' post.post_slug %}" class="btn btn-danger"
+                    aria-label="Delete this post">Delete</a>
             </div>
         </div>
     </div>
@@ -94,7 +96,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="" class="btn btn-danger" id="deleteConfirm">Delete</a>
+                <a href="" class="btn btn-danger" id="deleteConfirm" aria-label="Confirm delete comment">Delete</a>
             </div>
         </div>
     </div>
@@ -135,7 +137,8 @@
     <!-- Please Log In Info -->
     {% if not user.is_authenticated %}
     <div class="alert alert-info">
-        <p>Please <a href="{% url 'account_login' %}">log in</a> or <a href="{% url 'account_signup' %}">register</a> to
+        <p>Please <a href="{% url 'account_login' %}" aria-label="Log in to your account">log in</a> or <a
+                href="{% url 'account_signup' %}" aria-label="Create a new account">register</a> to
             post a comment.</p>
     </div>
     {% endif %}
@@ -170,7 +173,8 @@
                             <div class="comment-body">{{ comment.comment_body|linebreaks }}</div>
                             <div class="comment-meta">
                                 <span class="profile-pic-wrapper">
-                                    <a href="{% url 'view_profile' comment.comment_author.username %}">
+                                    <a href="{% url 'view_profile' comment.comment_author.username %}"
+                                        aria-label="View {{ comment.comment_author.username }}'s profile">
                                         {% if "static/images/default.png" in comment.comment_author.profiler.profile_image.url %}
                                         <img src="{% static 'images/default.png' %}"
                                             alt="{{ comment.comment_author.username }}" class="profile-pic-small">
@@ -220,7 +224,8 @@
                             <div class="comment-body">{{ comment.comment_body|linebreaks }}</div>
                             <div class="comment-meta">
                                 <span class="profile-pic-wrapper">
-                                    <a href="{% url 'view_profile' comment.comment_author.username %}">
+                                    <a href="{% url 'view_profile' comment.comment_author.username %}"
+                                        aria-label="View {{ comment.comment_author.username }}'s profile">
                                         {% if "static/images/default.png" in comment.comment_author.profiler.profile_image.url %}
                                         <img src="{% static 'images/default.png' %}"
                                             alt="{{ comment.comment_author.username }}" class="profile-pic-small">

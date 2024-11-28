@@ -39,7 +39,9 @@
             <ul>
                 {% with posts=profiler.profile_last_posts.all %}
                 {% for post in posts %}
-                <li><a href="{% url 'post_detail' post.post_slug %}">{{ post.post_title }} - {{ post.post_excerpt }}</a>
+                <li><a href="{% url 'post_detail' post.post_slug %}"
+                        aria-label="View post: {{ post.post_title }}">{{ post.post_title }} -
+                        {{ post.post_excerpt }}</a>
                 </li>
                 {% endfor %}
                 {% endwith %}
@@ -54,7 +56,8 @@
                 {% with comments=profiler.profile_last_comments.all %}
                 {% for comment in comments %}
                 <li>
-                    <a href="{% url 'post_detail' comment.parent_post.post_slug %}">{{ comment.comment_body }}</a>
+                    <a href="{% url 'post_detail' comment.parent_post.post_slug %}"
+                        aria-label="View comment on post: {{ comment.parent_post.post_title }}">{{ comment.comment_body }}</a>
                 </li>
                 {% endfor %}
                 {% endwith %}
@@ -72,7 +75,7 @@
 
     <!-- Edit Profiler -->
     {% if is_owner %}
-    <a href="{% url 'profiler_edit' profiler.id %}" class="btn btn-edit">Edit Profile</a>
+    <a href="{% url 'profiler_edit' profiler.id %}" class="btn btn-edit" aria-label="Edit your profile">Edit Profile</a>
     {% endif %}
 
 </div>

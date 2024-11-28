@@ -43,76 +43,78 @@
 </head>
 
 <body class="d-flex flex-column h-100 main-bg">
+    <header>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}"><span class="brand">Summarazorator</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
+                                href="{% url 'home' %}" aria-label="Home page">Home</a>
+                        </li>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}"><span class="brand">Summarazorator</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'home' %}" aria-label="Home page">Home</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == profiler_url %}active{% endif %}"
+                                aria-current="page" href="{% url 'profiler' %}" aria-label="Profile page">Profile</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == profiler_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'profiler' %}" aria-label="Profile page">Profile</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == about_url %}active{% endif %}" aria-current="page"
+                                href="{% url 'about' %}" aria-label="About page">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == create_url %}active{% endif %}" aria-current="page"
+                                href="{% url 'create_post' %}" aria-label="Create new post">Create New Post</a>
+                        </li>
+                        <li class="nav-item"></li>
+                        <form method="GET" id="search_bar" action="{% url 'search' %}" class="d-flex">
+                            <input type="text" name="searchbar" class="form-control me-2" placeholder="Search posts..."
+                                aria-label="Search">
+                            <button type="submit" class="btn btn-outline-success"
+                                aria-label="Submit search">Search</button>
+                        </form>
 
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == about_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'about' %}" aria-label="About page">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == create_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'create_post' %}" aria-label="Create new post">Create New Post</a>
-                    </li>
-                    <li class="nav-item"></li>
-                    <form method="GET" id="search_bar" action="{% url 'search' %}" class="d-flex">
-                        <input type="text" name="searchbar" class="form-control me-2" placeholder="Search posts..."
-                            aria-label="Search">
-                        <button type="submit" class="btn btn-outline-success" aria-label="Submit search">Search</button>
-                    </form>
-
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_logout' %}" aria-label="Log out">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_signup' %}" aria-label="Register new account">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_login' %}" aria-label="Log in to your account">Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
-                <span class="navbar-text text-muted">
-                    Razor Sharp Summaries
-                </span>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
+                                href="{% url 'account_logout' %}" aria-label="Log out">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
+                                href="{% url 'account_signup' %}" aria-label="Register new account">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
+                                href="{% url 'account_login' %}" aria-label="Log in to your account">Login</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <span class="navbar-text text-muted">
+                        Razor Sharp Summaries
+                    </span>
+                </div>
             </div>
-        </div>
-    </nav>
-
-    <!-- displaying Django messages -->
-    <div class="message-container">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3" role="alert">
-            {{ message | safe }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endfor %}
-    </div>
-
+        </nav>
+    </header>
     <main class="flex-shrink-0 main-bg">
+        <!-- displaying Django messages -->
+        <div class="message-container">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3" role="alert">
+                {{ message | safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+
+
 
         {% if user.is_authenticated %}
         <p class="text-end m-3">You are logged in as {{ user }}</p>
