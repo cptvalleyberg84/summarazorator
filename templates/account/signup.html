@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
 {% load i18n %}
+{% load static %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
@@ -20,47 +20,57 @@
   </div>
   <div class="row">
     <div class="col-md-8 mt-3 offset-md-2">
-      <div class="card mb-4">
+      <div class="card mb-4 guidelines-card">
         <div class="card-header">
-          <h4 class="mb-0">Community Guidelines</h4>
+          <h3>Community Guidelines</h3>
         </div>
         <div class="card-body">
-          <p class="fw-bold mb-3">By creating an account, you agree to follow these community guidelines:</p>
-          <ol class="guidelines-list">
-            <li>Respect all community members regardless of their background, identity, or opinions.</li>
+          <ul class="guidelines-list">
+            <li>Respect all community members and their contributions</li>
             <li>Post content in appropriate sections:
               <ul>
-                <li>Positive comments and feedback must be posted in the positive section only</li>
-                <li>Negative comments and feedback must be posted in the negative section only</li>
-                <li>Deliberately posting in wrong sections may result in account suspension or permanent ban</li>
+                <li>Positive feedback and comments must be posted in the Positive section only</li>
+                <li>Negative feedback and comments must be posted in the Negative section only</li>
+                <li>Posting in wrong sections may result in content removal</li>
               </ul>
             </li>
-            <li>No hate speech, harassment, or bullying of any kind will be tolerated.</li>
-            <li>Keep discussions constructive and relevant to the topic.</li>
-            <li>Do not share personal or sensitive information about others.</li>
-            <li>No spam, advertising, or self-promotion without permission.</li>
-            <li>Respect intellectual property rights and give credit when using others' content.</li>
-            <li>Report inappropriate content or behavior to moderators.</li>
-          </ol>
-          <p class="mt-3 text-danger fw-bold">Note: Violation of these guidelines, especially regarding correct section
-            posting, may result in immediate account suspension or permanent ban at moderators' discretion.</p>
+            <li>No hate speech, harassment, or inappropriate content</li>
+            <li>Respect intellectual property rights</li>
+            <li>Follow the voting and commenting rules:
+              <ul>
+                <li>To give a point (upvote), you must leave a comment</li>
+                <li>Your comment should explain why you're giving the point</li>
+                <li>Keep feedback constructive and section-appropriate</li>
+              </ul>
+            </li>
+            <li>Repeated violation of guidelines may result in account suspension</li>
+          </ul>
+          <div class="form-check guidelines-check mt-3">
+            <input class="form-check-input" type="checkbox" id="guidelinesAccepted" required>
+            <label class="form-check-label" for="guidelinesAccepted">
+              I have read and agree to follow the community guidelines
+            </label>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8 mt-3 offset-md-2">
-      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}" role="form"
+        aria-labelledby="signup-heading">
+        <h2 id="signup-heading" class="visually-hidden">Sign Up Form</h2>
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="form-fields">
+          {{ form.as_p }}
+        </div>
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <button class="btn btn-signup right" type="submit">
-          {% trans "Sign Up" %} &raquo;</button>
+        <button class="btn btn-signup right" type="submit" aria-label="Complete sign up" id="signupButton" disabled>
+          {% trans "Sign Up" %} &raquo;
+        </button>
       </form>
     </div>
   </div>
 </div>
 
+
+<script src="{% static 'js/signup.js' %}"></script>
 {% endblock %}

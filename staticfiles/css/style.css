@@ -677,3 +677,53 @@ textarea.form-control {
     min-height: 150px;
     resize: vertical;
 }
+
+
+/* Guidelines Card Styling */
+.guidelines-card {
+    border: 1px solid #e1e4e8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.guidelines-card .card-header {
+    background-color: #188181;
+    color: white;
+    padding: 1rem;
+}
+
+.guidelines-card .card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.guidelines-list {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.guidelines-list ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.guidelines-list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.guidelines-check {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e1e4e8;
+}
+
+.form-check-input:checked {
+    background-color: #188181;
+    border-color: #188181;
+}
+
+.form-check-label {
+    font-weight: 500;
+}
