@@ -49,10 +49,10 @@
                 </p>
                 {% if user.is_authenticated and post.post_author == user %}
                 <div class="mt-3 text-end">
-                    <a href="{% url 'post_edit' post.post_slug %}" class="btn btn-primary" aria-label="Edit this post">
+                    <a href="{% url 'post_edit' post.post_slug %}" class="btn btn-edit" aria-label="Edit this post">
                         <i class="fas fa-edit"></i> Edit Post
                     </a>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-danger-post" data-bs-toggle="modal"
                         data-bs-target="#deletePostModal">
                         <i class="fas fa-trash"></i> Delete Post
                     </button>

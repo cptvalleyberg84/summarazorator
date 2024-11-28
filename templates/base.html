@@ -103,29 +103,29 @@
             </div>
         </nav>
     </header>
+
     <main class="flex-shrink-0 main-bg">
-        <!-- displaying Django messages -->
-        <div class="message-container">
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3" role="alert">
-                {{ message | safe }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="content-container">
+            <!-- displaying Django messages -->
+            <div class="message-container">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message | safe }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
+            {% if user.is_authenticated %}
+            <p class="text-end m-3">You are logged in as {{ user }}</p>
+            {% else %}
+            <p class="text-end m-3">You are not logged in</p>
+            {% endif %}
+
+            {% block content %}
+            <!-- Content Goes here -->
+            {% endblock content %}
         </div>
-
-
-
-        {% if user.is_authenticated %}
-        <p class="text-end m-3">You are logged in as {{ user }}</p>
-        {% else %}
-        <p class="text-end m-3">You are not logged in</p>
-        {% endif %}
-
-        {% block content %}
-        <!-- Content Goes here -->
-        {% endblock content %}
-
     </main>
 
     <footer class="footer mt-auto py-3 dark-bg" role="contentinfo">

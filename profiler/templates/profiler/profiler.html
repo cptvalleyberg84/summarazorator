@@ -3,80 +3,97 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-<!-- displaying Django messages -->
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-dismissible
-            fade show" id="msg" role="alert">
-                {{ message | safe }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-4 text-center">
+<div class="container profile-container">
+    <!-- Profile Header -->
+    <div class="row profile-header">
+        <div class="col-md-4 text-center">
             {% if "static/images/default.png" in profiler.profile_image.url %}
             <img src="{% static 'images/default.png' %}" alt="{{ profiler.profile_user.username }}'s profile picture"
-                class="scale">
+                class="profile-image">
             {% else %}
             <img src="{{ profiler.profile_image.url }}" alt="{{ profiler.profile_user.username }}'s profile picture"
-                class="scale">
+                class="profile-image">
             {% endif %}
+            <h1 class="username-display mt-3">{{ profiler.profile_user | safe }}</h1>
         </div>
-        <div class="col-8" id="profiler-data">
-            <h2>User: {{ profiler.profile_user | safe }}</h2>
-            <h3>Bio</h3>
-            {{ profiler.profile_bio | safe }}
-
-            <h2>Last Posts</h2>
-            {% if profiler.profile_last_posts.exists %}
-            <ul>
-                {% with posts=profiler.profile_last_posts.all %}
-                {% for post in posts %}
-                <li><a href="{% url 'post_detail' post.post_slug %}"
-                        aria-label="View post: {{ post.post_title }}">{{ post.post_title }} -
-                        {{ post.post_excerpt }}</a>
-                </li>
-                {% endfor %}
-                {% endwith %}
-            </ul>
-            {% else %}
-            <p>No posts available.</p>
-            {% endif %}
-
-            <h2>Last Comments</h2>
-            {% if profiler.profile_last_comments.exists %}
-            <ul>
-                {% with comments=profiler.profile_last_comments.all %}
-                {% for comment in comments %}
-                <li>
-                    <a href="{% url 'post_detail' comment.parent_post.post_slug %}"
-                        aria-label="View comment on post: {{ comment.parent_post.post_title }}">{{ comment.comment_body }}</a>
-                </li>
-                {% endfor %}
-                {% endwith %}
-            </ul>
-            {% else %}
-            <p>No comments available.</p>
-            {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col text-right">
-            <p class="text-end"><em>Updated on: {{ profiler.profile_updated_on }}</em></p>
+        <div class="col-md-8">
+            <div class="bio-section">
+                <h2 class="section-title">Bio</h2>
+                <div class="bio-content">
+                    {{ profiler.profile_bio | safe }}
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Edit Profiler -->
-    {% if is_owner %}
-    <a href="{% url 'profiler_edit' profiler.id %}" class="btn btn-edit" aria-label="Edit your profile">Edit Profile</a>
-    {% endif %}
+    <!-- User Activity Section -->
+    <div class="row mt-4">
+        <!-- Last Posts -->
+        <div class="col-md-6">
+            <div class="activity-section">
+                <h2 class="section-title">Last Posts</h2>
+                <div class="activity-content">
+                    {% if profiler.profile_last_posts.exists %}
+                    <ul class="activity-list">
+                        {% with posts=profiler.profile_last_posts.all %}
+                        {% for post in posts %}
+                        <li>
+                            <a href="{% url 'post_detail' post.post_slug %}"
+                                aria-label="View post: {{ post.post_title }}" class="activity-link">
+                                <span class="activity-title">{{ post.post_title }}</span>
+                                <span class="activity-excerpt">{{ post.post_excerpt }}</span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                        {% endwith %}
+                    </ul>
+                    {% else %}
+                    <p class="no-content">No posts available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
 
+        <!-- Last Comments -->
+        <div class="col-md-6">
+            <div class="activity-section">
+                <h2 class="section-title">Last Comments</h2>
+                <div class="activity-content">
+                    {% if profiler.profile_last_comments.exists %}
+                    <ul class="activity-list">
+                        {% with comments=profiler.profile_last_comments.all %}
+                        {% for comment in comments %}
+                        <li>
+                            <a href="{% url 'post_detail' comment.parent_post.post_slug %}"
+                                aria-label="View comment on post: {{ comment.parent_post.post_title }}"
+                                class="activity-link">
+                                <span class="activity-comment">{{ comment.comment_body }}</span>
+                                <span class="activity-post-title">on: {{ comment.parent_post.post_title }}</span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                        {% endwith %}
+                    </ul>
+                    {% else %}
+                    <p class="no-content">No comments available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Footer -->
+    <div class="row mt-4">
+        <div class="col">
+            <div class="profile-footer">
+                <p class="update-time">Last updated: {{ profiler.profile_updated_on }}</p>
+                {% if is_owner %}
+                <a href="{% url 'profiler_edit' profiler.id %}" class="btn btn-edit" aria-label="Edit your profile">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}

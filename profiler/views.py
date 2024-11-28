@@ -46,6 +46,7 @@ def profiler_page(request):
         {
             "profiler": profiler,
             'profiler_form': profiler_form,
+            "is_owner": True,
         },
     )
 
