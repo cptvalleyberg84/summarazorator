@@ -7,11 +7,12 @@
     <!-- Profile Header -->
     <div class="row profile-header">
         <div class="col-md-4 text-center">
-            {% if profiler.profile_image %}
-            <img src="{{ profiler.profile_image.url }}" class="profile-image"
+            {% if "static/images/default.png" in profiler.profile_image.url %}
+            <img src="{% static 'images/default.png' %}" class="profile-image"
                 alt="{{ profiler.profile_user.username }}'s profile picture">
             {% else %}
-            <img src="{% static 'images/default.png' %}" class="profile-image" alt="Default profile picture">
+            <img src="{{ profiler.profile_image.url }}" class="profile-image"
+                alt="{{ profiler.profile_user.username }}'s profile picture">
             {% endif %}
             <h1 class="username-display mt-3">{{ profiler.profile_user | safe }}</h1>
         </div>
