@@ -153,8 +153,6 @@ body {
 .btn-delete {
     color: #fff;
     background: #E84610;
-    margin: 10px 0;
-    display: inline-block;
 }
 
 .btn-danger-post {
@@ -353,15 +351,20 @@ body {
 
 .btn-edit:hover,
 .btn-edit:active {
-    color: #000;
-}
-
-.btn-edit:hover i {
-    color: #000;
+    background-color: #0f5c5c;
+    color: #fff;
 }
 
 /* Profile Container */
 #profiler-data {
+    margin-bottom: 20px;
+}
+
+.scale {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
     margin-bottom: 20px;
 }
 
