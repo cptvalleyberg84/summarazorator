@@ -11,7 +11,7 @@ class Profiler(models.Model):
     customization and tracking user's recent activity.
     """
     profile_user = models.OneToOneField(
-        User, 
+        User,
         on_delete=models.CASCADE,
         related_name="profiler"
     )

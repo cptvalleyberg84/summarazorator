@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 if os.path.isfile('env.py'):
     import env
 from pathlib import Path
@@ -29,12 +32,12 @@ SECRET_KEY = 'django-insecure-v6ylt*h6y$k##tpj*=rd!bo*_z)2)s)3&(#4(v#3b#*)5_c_md
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEVELOPMENT' in os.environ
-# DEBUG = False
-# DEBUG = True
 
 
-ALLOWED_HOSTS = ['8000-cptvalleybe-summarazora-s50rt81q064.ws.codeinstitute-ide.net',
-                '.herokuapp.com']
+ALLOWED_HOSTS = [
+    '8000-cptvalleybe-summarazora-s50rt81q064.ws.codeinstitute-ide.net',
+    '.herokuapp.com'
+    ]
 
 # Email Configuration
 if 'DEVELOPMENT' in os.environ:
@@ -212,15 +215,12 @@ CLOUDINARY_STORAGE = {
     'SECURE': True
 }
 
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
 # Cloudinary configuration
-cloudinary.config( 
-    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    api_key = os.environ.get('CLOUDINARY_API_KEY'),
-    api_secret = os.environ.get('CLOUDINARY_API_SECRET')
+cloudinary.config(
+    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret=os.environ.get('CLOUDINARY_API_SECRET')
 )
 
 

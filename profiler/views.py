@@ -131,7 +131,7 @@ def view_profile(request, username):
     """
     user = get_object_or_404(User, username=username)
     profiler = get_object_or_404(Profiler, profile_user=user)
-    
+
     profiler.profile_last_posts.set(
         Post.objects.filter(post_author=user)
         .order_by('-post_created_on')[:3]

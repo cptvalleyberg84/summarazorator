@@ -1,8 +1,10 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse
-from .models import Post, Comment
 from django.utils.text import slugify
+from .models import Post, Comment
+
+
 
 class ForumCRUDTest(TestCase):
     def setUp(self):
@@ -17,7 +19,7 @@ class ForumCRUDTest(TestCase):
             username='testuser2',
             password='testpass123'
         )
-        
+
         # Create a test post
         self.post = Post.objects.create(
             post_title='Test Post',
@@ -26,7 +28,7 @@ class ForumCRUDTest(TestCase):
             post_content='Test content',
             post_status=1
         )
-        
+
         # Create a test comment
         self.comment = Comment.objects.create(
             parent_post=self.post,
@@ -44,13 +46,13 @@ class ForumCRUDTest(TestCase):
             password='newpass123'
         )
         self.assertTrue(User.objects.filter(username='newuser').exists())
-        
+
         # Test user update
         new_user.email = 'test@example.com'
         new_user.save()
         updated_user = User.objects.get(username='newuser')
         self.assertEqual(updated_user.email, 'test@example.com')
-        
+
         # Test user delete
         new_user.delete()
         self.assertFalse(User.objects.filter(username='newuser').exists())
@@ -58,7 +60,7 @@ class ForumCRUDTest(TestCase):
     def test_post_crud(self):
         """Test Post CRUD operations."""
         self.client.login(username='testuser1', password='testpass123')
-        
+
         # Test post creation
         self.client.login(username='testuser1', password='testpass123')  # Login before creating post
         response = self.client.post(reverse('create_post'), {
@@ -68,12 +70,12 @@ class ForumCRUDTest(TestCase):
             'post_status': 1
         })
         self.assertTrue(Post.objects.filter(post_title='New Test Post').exists())
-        
+
         # Test post read
         post = Post.objects.get(post_title='New Test Post')
         response = self.client.get(reverse('post_detail', args=[post.post_slug]))
         self.assertEqual(response.status_code, 200)
-        
+
         # Test post update
         response = self.client.post(
             reverse('post_edit', args=[post.post_slug]),
@@ -86,7 +88,7 @@ class ForumCRUDTest(TestCase):
         )
         updated_post = Post.objects.get(pk=post.pk)
         self.assertEqual(updated_post.post_title, 'Updated Test Post')
-        
+
         # Test post delete
         self.client.login(username='testuser1', password='testpass123')  # Ensure user is logged in
         post = Post.objects.get(post_title='Updated Test Post')
@@ -96,7 +98,7 @@ class ForumCRUDTest(TestCase):
     def test_comment_crud(self):
         """Test Comment CRUD operations."""
         self.client.login(username='testuser1', password='testpass123')
-        
+
         # Test comment creation
         response = self.client.post(
             reverse('post_detail', args=[self.post.post_slug]),
@@ -106,12 +108,12 @@ class ForumCRUDTest(TestCase):
             }
         )
         self.assertTrue(Comment.objects.filter(comment_body='New test comment').exists())
-        
+
         # Test comment read
         comment = Comment.objects.get(comment_body='New test comment')
         response = self.client.get(reverse('post_detail', args=[self.post.post_slug]))
         self.assertEqual(response.status_code, 200)
-        
+
         # Test comment update
         response = self.client.post(
             reverse('comment_edit', args=[self.post.post_slug, comment.pk]),
@@ -122,7 +124,7 @@ class ForumCRUDTest(TestCase):
         )
         updated_comment = Comment.objects.get(pk=comment.pk)
         self.assertEqual(updated_comment.comment_body, 'Updated test comment')
-        
+
         # Test comment delete
         response = self.client.get(
             reverse('comment_delete', args=[self.post.post_slug, comment.pk])
@@ -133,7 +135,7 @@ class ForumCRUDTest(TestCase):
         """Test authorization rules."""
         # Login as user2 (not the author of the test post)
         self.client.login(username='testuser2', password='testpass123')
-        
+
         # Try to edit post as non-author
         response = self.client.post(
             reverse('post_edit', args=[self.post.post_slug]),
@@ -145,11 +147,11 @@ class ForumCRUDTest(TestCase):
         )
         post = Post.objects.get(pk=self.post.pk)
         self.assertNotEqual(post.post_title, 'Unauthorized Edit')
-        
+
         # Try to delete post as non-author
         response = self.client.get(reverse('post_delete', args=[self.post.post_slug]))
         self.assertTrue(Post.objects.filter(pk=self.post.pk).exists())
-        
+
         # Try to edit comment as non-author
         response = self.client.post(
             reverse('comment_edit', args=[self.post.post_slug, self.comment.pk]),
@@ -160,7 +162,7 @@ class ForumCRUDTest(TestCase):
         )
         comment = Comment.objects.get(pk=self.comment.pk)
         self.assertNotEqual(comment.comment_body, 'Unauthorized comment edit')
-        
+
         # Try to delete comment as non-author
         response = self.client.get(
             reverse('comment_delete', args=[self.post.post_slug, self.comment.pk])

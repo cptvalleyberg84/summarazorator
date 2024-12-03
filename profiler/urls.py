@@ -1,5 +1,6 @@
-from . import views
 from django.urls import path
+from . import views
+
 
 urlpatterns = [
     path('', views.profiler_page, name='profiler'),
@@ -7,4 +8,3 @@ urlpatterns = [
     path('profiler/<int:pk>/delete/', views.profile_delete, name='profiler_delete'),
     path('user/<str:username>/', views.view_profile, name='view_profile'),
 ]
-
