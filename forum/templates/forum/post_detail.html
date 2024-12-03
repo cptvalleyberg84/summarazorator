@@ -84,11 +84,11 @@
 </div>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <h5 class="modal-title" id="delete-modal-label">Confirm Delete</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -96,7 +96,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="" class="btn btn-danger" id="deleteConfirm" aria-label="Confirm delete comment">Delete</a>
+                <a href="" class="btn btn-danger" id="delete-confirm" aria-label="Confirm delete comment">Delete</a>
             </div>
         </div>
     </div>
@@ -148,14 +148,14 @@
     <!-- Single Comment Form -->
     <div class="comment-form-container" style="clear: both; width: 70%; margin: 20px auto;">
         <div id="comment-form" style="display: none;">
-            <form id="commentForm" method="post">
+            <form id="comment-form-element" method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <textarea id="id_comment_body" name="comment_body" class="form-control" rows="4"
+                    <textarea id="comment-body" name="comment_body" class="form-control" rows="4"
                         minlength="12"></textarea>
                 </div>
-                <input type="hidden" name="comment_type" id="comment_type">
-                <button type="submit" id="submitBtn" class="btn" aria-label="Submit comment">Submit</button>
+                <input type="hidden" name="comment_type" id="comment-type">
+                <button type="submit" id="submit-btn" class="btn" aria-label="Submit comment">Submit</button>
             </form>
         </div>
     </div>

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const checkbox = document.getElementById('guidelinesAccepted');
-    const signupButton = document.getElementById('signupButton');
+    const checkbox = document.getElementById('guidelines-accepted');
+    const signupButton = document.getElementById('signup-button');
 
     if (checkbox && signupButton) {
         checkbox.addEventListener('change', function () {

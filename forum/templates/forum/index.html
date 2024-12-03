@@ -39,9 +39,10 @@
                                 </div>
                             </div>
                             <a href="{% url 'post_detail' post.post_slug %}" class="post-link"
-                                aria-label="Read full post titled {{ post.post_title }}">Read More</a>
-                            <h2 class="card-title">{{ post.post_title }}</h2>
-                            <p class="card-text">{{ post.post_excerpt }}</p>
+                                aria-label="Read full post titled {{ post.post_title }}">
+                                <h2 class="card-title">{{ post.post_title }}</h2>
+                                <p class="card-text">{{ post.post_excerpt }}</p>
+                            </a>
                             <!-- Add the likes/dislikes count -->
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="post-reactions">

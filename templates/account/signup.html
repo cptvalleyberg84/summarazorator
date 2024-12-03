@@ -46,8 +46,8 @@
             <li>Repeated violation of guidelines may result in account suspension</li>
           </ul>
           <div class="form-check guidelines-check mt-3">
-            <input class="form-check-input" type="checkbox" id="guidelinesAccepted" required>
-            <label class="form-check-label" for="guidelinesAccepted">
+            <input class="form-check-input" type="checkbox" id="guidelines-accepted" required>
+            <label class="form-check-label" for="guidelines-accepted">
               I have read and agree to follow the community guidelines
             </label>
           </div>
@@ -63,7 +63,7 @@
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <button class="btn btn-signup right" type="submit" aria-label="Complete sign up" id="signupButton" disabled>
+        <button class="btn btn-signup right" type="submit" aria-label="Complete sign up" id="signup-button" disabled>
           {% trans "Sign Up" %} &raquo;
         </button>
       </form>

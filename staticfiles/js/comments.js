@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const negativeBtn = document.getElementById('negative-btn');
     const editButtons = document.getElementsByClassName("btn-edit");
     const deleteButtons = document.getElementsByClassName("btn-delete");
-    const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
-    const deleteConfirm = document.getElementById("deleteConfirm");
+    const deleteModal = new bootstrap.Modal(document.getElementById("delete-modal"));
+    const deleteConfirm = document.getElementById("delete-confirm");
     const commentForm = document.getElementById('comment-form');
-    const submitBtn = document.getElementById('submitBtn');
-    const commentTypeInput = document.getElementById('comment_type');
-    const commentFormElement = document.getElementById('commentForm');
+    const submitBtn = document.getElementById('submit-btn');
+    const commentTypeInput = document.getElementById('comment-type');
+    const commentFormElement = document.getElementById('comment-form-element');
 
     window.scrollToComments = function (sectionId, blockPosition) {
         document.getElementById(sectionId).scrollIntoView({
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             commentTypeInput.value = 'positive';
             submitBtn.innerHTML = '<i class="fas fa-thumbs-up"></i> Submit Positive Comment';
             commentFormElement.setAttribute('action', '');
-            document.getElementById('id_body').focus();
+            document.getElementById('comment-body').focus();
         } else {
             alert("Please log in to comment.");
         }
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             commentTypeInput.value = 'negative';
             submitBtn.innerHTML = '<i class="fas fa-thumbs-down"></i> Submit Negative Comment';
             commentFormElement.setAttribute('action', '');
-            document.getElementById('id_body').focus();
+            document.getElementById('comment-body').focus();
         } else {
             alert("Please log in to comment.");
         }
@@ -83,10 +83,10 @@ document.addEventListener('DOMContentLoaded', function () {
             commentForm.style.display = 'block';
 
             // Set the comment text
-            document.getElementById('id_body').value = commentContent;
+            document.getElementById('comment-body').value = commentContent;
 
             // Focus on the textarea
-            document.getElementById('id_body').focus();
+            document.getElementById('comment-body').focus();
 
             // Update form styling and text based on comment type
             if (isPositive) {
