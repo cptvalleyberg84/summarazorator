@@ -3,7 +3,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-<div class="container profile-container">
+<section class="container profile-container">
     <!-- Profile Header -->
     <div class="row profile-header">
         <div class="col-md-4 text-center">
@@ -27,9 +27,9 @@
     </div>
 
     <!-- User Activity Section -->
-    <div class="row mt-4">
+    <section class="row mt-4">
         <!-- Last Posts -->
-        <div class="col-md-6">
+        <article class="col-md-6">
             <div class="activity-section">
                 <h2 class="section-title">Last Posts</h2>
                 <div class="activity-content">
@@ -52,10 +52,10 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
+        </article>
 
         <!-- Last Comments -->
-        <div class="col-md-6">
+        <article class="col-md-6">
             <div class="activity-section">
                 <h2 class="section-title">Last Comments</h2>
                 <div class="activity-content">
@@ -79,11 +79,11 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
-    </div>
+        </article>
+    </section>
 
     <!-- Profile Footer -->
-    <div class="row mt-4">
+    <section class="row mt-4">
         <div class="col">
             <div class="profile-footer">
                 <p class="update-time">Last updated: {{ profiler.profile_updated_on }}</p>
@@ -94,6 +94,6 @@
                 {% endif %}
             </div>
         </div>
-    </div>
-</div>
+    </section>
+</section>
 {% endblock content %}

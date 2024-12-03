@@ -754,3 +754,63 @@ a:hover .profile-icon {
         margin: 0 auto;
     }
 }
+
+
+@media (max-width: 991px) {
+    .comments-list .comment-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .comments-list .comment-meta .post-timestamps {
+        margin-top: 0.5rem;
+    }
+}
+
+
+@media (max-width: 575px) {
+    .row {
+        display: block;
+    }
+
+    .col-6 {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .positive-side,
+    .negative-side {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .sticky-nav {
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa;
+        padding: 10px;
+        display: flex;
+        justify-content: space-around;
+        z-index: 1000;
+    }
+
+    .sticky-nav button {
+        padding: 8px 16px;
+        border: none;
+        background-color: #28a745;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .sticky-nav button:hover {
+        background-color: #218838;
+    }
+}
+
+@media (min-width: 576px) {
+    .sticky-nav {
+        display: none;
+    }
+}

@@ -2,19 +2,26 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <h3>Edit Post</h3>
-            <form method="post" enctype="multipart/form-data">
+<main class="container">
+    <section class="row">
+        <article class="col-md-8 mt-3 offset-md-2">
+            <h1>Edit Post</h1>
+            <form method="post" enctype="multipart/form-data" id="edit-post-form"
+                aria-label="Edit existing forum post form">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-edit">Update Post</button>
-                <a href="{% url 'post_detail' post.post_slug %}" class="btn btn-secondary"
-                    aria-label="Cancel editing and return to post">Cancel</a>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" aria-label="Save post changes">
+                        Update Post
+                    </button>
+                    <a href="{% url 'post_detail' post.post_slug %}" class="btn btn-secondary ml-2"
+                        aria-label="Cancel editing and return to post">
+                        Cancel
+                    </a>
+                </div>
             </form>
-        </div>
-    </div>
-</div>
+        </article>
+    </section>
+</main>
 
 {% endblock %}

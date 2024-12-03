@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<section class="container">
     <h2>Search Results</h2>
     {% if query %}
     <p>Showing results for: "{{ query }}"</p>
     {% if posts %}
     {% for post in posts %}
-    <div class="card mb-3">
+    <article class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title">{{ post.post_title|safe }}</h5>
+            <h3 class="card-title">{{ post.post_title|safe }}</h3>
             <p class="card-text">{{ post.post_content|safe|truncatewords:30 }}</p>
             <a href="{% url 'post_detail' post.post_slug %}" class="btn btn-primary"
                 aria-label="Read more about {{ post.post_title }}">Read More</a>
         </div>
-    </div>
+    </article>
     {% endfor %}
     {% else %}
     <p>No results found.</p>
@@ -22,5 +22,5 @@
     {% else %}
     <p>Please enter a search term.</p>
     {% endif %}
-</div>
+</section>
 {% endblock %}

@@ -3,41 +3,41 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
+<main class="container mt-5">
+    <section class="row">
         <div class="col-12 col-md-4 text-center">
             <img src="{% static 'images/rzrtr-logo.jpg' %}" width="75%" alt="Summarazorator Logo">
         </div>
-        <div class="col-12 col-md-8">
+        <article class="col-12 col-md-8">
             {% if about %}
-            <h2>{{ about.about_title }}</h2>
-            <p>{{ about.about_content | safe }}</p>
+            <h1>{{ about.about_title }}</h1>
+            <div>{{ about.about_content | safe }}</div>
             {% else %}
-            <h2>Welcome to Summarazorator</h2>
+            <h1>Welcome to Summarazorator</h1>
             <p>Content coming soon...</p>
             {% endif %}
-        </div>
-    </div>
-    <div class="row">
+        </article>
+    </section>
+    <aside class="row">
         <div class="col text-right">
             {% if about %}
-            <p class="text-end"><em>Updated on: {{ about.about_updated_on }}</em></p>
+            <p class="text-end"><em>Last updated: {{ about.about_updated_on }}</em></p>
             {% endif %}
         </div>
-    </div>
-    <div class="row justify-content-center">
+    </aside>
+    <section class="row justify-content-center">
         <div class="col-12 col-md-6 my-5">
             <h2>Let's collaborate!</h2>
             <p>Do you like the way Summarazorator handles community? Have an interesting idea for a topic? Please
                 contact us using the form below, and let's see what we can do together.</p>
 
-            <form method="post" id="collaboration-form">
+            <form method="post" id="collaboration-form" aria-label="Collaboration request form">
                 {{ collaborate_form | crispy }}
                 {% csrf_token %}
-                <button class="btn btn-secondary" type="submit">Submit</button>
+                <button class="btn btn-secondary" type="submit"
+                    aria-label="Submit collaboration request">Submit</button>
             </form>
-
         </div>
-    </div>
-</div>
+    </section>
+</main>
 {% endblock content %}

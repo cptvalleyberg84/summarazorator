@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container mt-5">
+<section class="container mt-5">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <article class="col-md-8 offset-md-2">
             <h2>Delete Profile</h2>
-            <div class="alert alert-danger">
+            <div class="alert-danger">
                 <p>Are you sure you want to delete your profile? This will:</p>
                 <ul>
                     <li>Delete your account ({{ profiler.profile_user.username }})</li>
@@ -17,9 +17,10 @@
             <form method="POST">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Yes, Delete Everything</button>
-                <a href="{% url 'profiler_edit' profiler.pk %}" class="btn btn-secondary">Cancel</a>
+                <a href="{% url 'profiler_edit' profiler.pk %}" class="btn btn-secondary"
+                    aria-label="Cancel Deletion and Edit Profile">Cancel</a>
             </form>
-        </div>
+        </article>
     </div>
-</div>
+</section>
 {% endblock %}

@@ -10,6 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const commentTypeInput = document.getElementById('comment_type');
     const commentFormElement = document.getElementById('commentForm');
 
+    window.scrollToComments = function (sectionId, blockPosition) {
+        document.getElementById(sectionId).scrollIntoView({
+            behavior: 'smooth',
+            block: blockPosition
+        });
+    }
+
+
 
     // Handle form submission collaboration form
     document.querySelectorAll('collaboration-form').forEach(form => {

@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div class="masthead">
+<article class="masthead">
     <div class="container">
         <div class="row g-0">
             <div class="col-md-6 masthead-text">
@@ -29,7 +29,7 @@
                     </span>
                 </p>
             </div>
-            <div class="d-none d-md-block col-md-6 masthead-image">
+            <div class="col-md-6 masthead-image">
                 {% if "placeholder" in post.post_featured_image.url %}
                 <img src="{% static 'images/default.png' %}" class="scale" alt="placeholder image">
                 {% else %}
@@ -38,9 +38,9 @@
             </div>
         </div>
     </div>
-</div>
+</article>
 
-<div class="container">
+<article class="container">
     <div class="row">
         <div class="col card mb-4  mt-3 left  top">
             <div class="card-body">
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-</div>
+</article>
 
 <!-- Delete Post Modal -->
 <div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="deletePostModalLabel" aria-hidden="true">
@@ -103,32 +103,34 @@
 </div>
 
 <!-- Main container with two columns -->
-<div class="container">
+<section class="container">
     <!-- Comment counts display -->
     <div class="row mb-3">
         <div class="col-6 text-center">
-            <h4 class="text-success">
+            <h2 class="text-success">
                 <i class="far fa-thumbs-up"></i>
                 Positive Comments: <span>{{ comments|filter_positive|length }}
-            </h4>
+            </h2>
         </div>
         <div class="col-6 text-center">
-            <h4 class="text-danger">
+            <h2 class="text-danger">
                 <i class="far fa-thumbs-down"></i>
                 Negative Comments: <span>{{ comments|filter_negative|length }}
-            </h4>
+            </h2>
         </div>
     </div>
 
     <!-- Reaction buttons row -->
     <div class="row mb-4">
         <div class="col-6 text-center">
-            <button id="positive-btn" class="btn btn-lg btn-success" data-auth="{{ user.is_authenticated|lower }}">
+            <button id="positive-btn" class="btn btn-lg btn-success" data-auth="{{ user.is_authenticated|lower }}"
+                aria-label="Like this post">
                 <i class="fas fa-thumbs-up"></i> Like
             </button>
         </div>
         <div class="col-6 text-center">
-            <button id="negative-btn" class="btn btn-lg btn-danger" data-auth="{{ user.is_authenticated|lower }}">
+            <button id="negative-btn" class="btn btn-lg btn-danger" data-auth="{{ user.is_authenticated|lower }}"
+                aria-label="Dislike this post">
                 <i class="fas fa-thumbs-down"></i> Dislike
             </button>
         </div>
@@ -153,7 +155,7 @@
                         minlength="12"></textarea>
                 </div>
                 <input type="hidden" name="comment_type" id="comment_type">
-                <button type="submit" id="submitBtn" class="btn">Submit</button>
+                <button type="submit" id="submitBtn" class="btn" aria-label="Submit comment">Submit</button>
             </form>
         </div>
     </div>
@@ -161,9 +163,14 @@
 
     <!-- Comments sections container -->
     <div class="row">
+        <div class="sticky-nav">
+            <button onclick="scrollToComments('positive-comments', 'end');">Positive Comments</button>
+            <button onclick="scrollToComments('negative-comments', 'start');">Negative Comments</button>
+        </div>
         <!-- Positive section (Left side) -->
         <div class="col-6">
-            <div class="positive-side">
+            <h3 class="text-success">Positive Comments</h3>
+            <aside class="positive-side">
                 <!-- Positive comments list -->
                 <div id="positive-comments" class="comments-section">
                     <div class="comments-list">
@@ -194,11 +201,12 @@
                                 {% if user == comment.comment_author %}
                                 <div class="comment-actions">
                                     <button class="btn btn-edit" data-bs-toggle="modal"
-                                        data-bs-target="#editModal{{ comment.id }}">
+                                        data-bs-target="#editModal{{ comment.id }}" aria-label="Edit this comment">
                                         Edit
                                     </button>
                                     <button class="btn btn-delete" data-bs-toggle="modal"
-                                        data-bs-target="#deleteCommentModal{{ comment.id }}">
+                                        data-bs-target="#deleteCommentModal{{ comment.id }}"
+                                        aria-label="Delete this comment">
                                         Delete
                                     </button>
                                 </div>
@@ -209,12 +217,13 @@
                         {% endfor %}
                     </div>
                 </div>
-            </div>
+            </aside>
         </div>
 
         <!-- Negative section (Right side) -->
         <div class="col-6">
-            <div class="negative-side">
+            <h3 class="text-danger">Negative Comments</h3>
+            <aside class="negative-side">
                 <!-- Negative comments list -->
                 <div id="negative-comments" class="comments-section">
                     <div class="comments-list">
@@ -245,11 +254,12 @@
                                 {% if user == comment.comment_author %}
                                 <div class="comment-actions">
                                     <button class="btn btn-edit" data-bs-toggle="modal"
-                                        data-bs-target="#editModal{{ comment.id }}">
+                                        data-bs-target="#editModal{{ comment.id }}" aria-label="Edit this comment">
                                         Edit
                                     </button>
                                     <button class="btn btn-delete" data-bs-toggle="modal"
-                                        data-bs-target="#deleteCommentModal{{ comment.id }}">
+                                        data-bs-target="#deleteCommentModal{{ comment.id }}"
+                                        aria-label="Delete this comment">
                                         Delete
                                     </button>
                                 </div>
@@ -260,10 +270,10 @@
                         {% endfor %}
                     </div>
                 </div>
-            </div>
+            </aside>
         </div>
     </div>
-</div>
+</section>
 
 <!-- Edit Comment Modal -->
 {% for comment in comments %}
@@ -283,7 +293,8 @@
                         <textarea class="form-control" id="comment{{ comment.id }}" name="comment_body"
                             rows="3">{{ comment.comment_body }}</textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary" aria-label="Save changes to comment">Save
+                        changes</button>
                 </form>
             </div>
         </div>
@@ -304,7 +315,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'comment_delete' post.post_slug comment.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'comment_delete' post.post_slug comment.id %}" class="btn btn-danger"
+                    aria-label="Delete this comment">Delete</a>
             </div>
         </div>
     </div>
