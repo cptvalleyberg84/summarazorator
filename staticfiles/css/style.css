@@ -1,3 +1,4 @@
+/* Base Layout and Typography */
 body {
     background-color: #F9FAFC;
     min-height: 100vh;
@@ -36,6 +37,7 @@ body {
     background-color: #F9FAFC;
 }
 
+/* Core UI Components */
 .card {
     border: none;
     background-color: transparent;
@@ -177,7 +179,7 @@ body {
     color: rgb(222, 146, 168);
 }
 
-/* reaction buttons */
+/* Post and Content Styling */
 .comments-container {
     display: flex;
     justify-content: space-between;
@@ -264,7 +266,7 @@ body {
     color: #6c757d;
 }
 
-/* Profile Picture Styles */
+/* Comment System Styles */
 .profile-pic-small {
     width: 32px;
     height: 32px;
@@ -331,7 +333,7 @@ body {
     max-height: 300px;
 }
 
-/* Index page author links */
+/* Profile and User Interface */
 .image-flash .author a {
     color: white;
     text-decoration: none;
@@ -365,7 +367,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* Footer styles */
+/* Form and Input Styling */
 .social-links a {
     text-decoration: none;
     color: white;
@@ -381,7 +383,7 @@ body {
     font-size: 1.5rem;
 }
 
-/* Message alerts styling */
+/* Alert and Message System */
 .message-container {
     position: fixed;
     top: 20px;
@@ -435,26 +437,22 @@ body {
     margin-bottom: -58px;
 }
 
-/* Layout Structure */
+/* Footer and Navigation */
 main {
     flex: 1 0 auto;
     padding: 20px 0;
-    /* Add padding top and bottom */
 }
 
-/* Content Spacing */
 .content-container {
     padding: 10px 0;
     margin-bottom: 20px;
 }
 
-/* Navigation Spacing */
 .navbar {
     margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Footer Styling */
 .footer {
     flex-shrink: 0;
     background-color: #445261;
@@ -593,7 +591,6 @@ main {
     margin: 0;
 }
 
-
 /* Profile Editor Styles */
 .edit-form-section {
     background-color: #fff;
@@ -675,7 +672,6 @@ textarea.form-control {
     resize: vertical;
 }
 
-
 /* Guidelines Card Styling */
 .guidelines-card {
     border: 1px solid #e1e4e8;
@@ -751,6 +747,7 @@ a:hover .profile-icon {
     color: #495057;
 }
 
+/* Responsive Design */
 @media screen and (min-width: 1250px) {
     .container-fluid {
         max-width: 1500px;
