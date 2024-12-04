@@ -37,6 +37,11 @@ body {
     background-color: #F9FAFC;
 }
 
+/* About Page Image */
+.summarazorator-logo {
+    width: 75%;
+}
+
 /* Core UI Components */
 .card {
     border: none;

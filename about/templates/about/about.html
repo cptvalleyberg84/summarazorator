@@ -3,10 +3,10 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<main class="container mt-5">
+<section class="container mt-5">
     <section class="row">
         <div class="col-12 col-md-4 text-center">
-            <img src="{% static 'images/rzrtr-logo.jpg' %}" width="75%" alt="Summarazorator Logo">
+            <img src="{% static 'images/rzrtr-logo.jpg' %}" class="summarazorator-logo" alt="Summarazorator Logo">
         </div>
         <article class="col-12 col-md-8">
             {% if about %}
@@ -39,5 +39,5 @@
             </form>
         </div>
     </section>
-</main>
+</section>
 {% endblock content %}

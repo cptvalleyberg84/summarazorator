@@ -20,7 +20,7 @@
     <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
 
     <!-- Website Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
         content="Summarazorator - A community-driven platform for content summarization and collaboration. Join our community to share and discuss ideas.">
     <meta name="keywords" content="summarization, community, collaboration, content, discussion, ideas">
@@ -77,13 +77,14 @@
                             <a class="nav-link {% if request.path == create_url %}active{% endif %}" aria-current="page"
                                 href="{% url 'create_post' %}" aria-label="Create new post">Create New Post</a>
                         </li>
-                        <li class="nav-item"></li>
-                        <form method="GET" id="search_bar" action="{% url 'search' %}" class="d-flex">
-                            <input type="text" name="searchbar" class="form-control me-2" placeholder="Search posts..."
-                                aria-label="Search">
-                            <button type="submit" class="btn btn-outline-success"
-                                aria-label="Submit search">Search</button>
-                        </form>
+                        <li class="nav-item">
+                            <form method="GET" id="search_bar" action="{% url 'search' %}" class="d-flex">
+                                <input type="text" name="searchbar" class="form-control me-2"
+                                    placeholder="Search posts..." aria-label="Search">
+                                <button type="submit" class="btn btn-outline-success"
+                                    aria-label="Submit search">Search</button>
+                            </form>
+                        </li>
 
                         {% if user.is_authenticated %}
                         <li class="nav-item">
@@ -141,7 +142,7 @@
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 dark-bg" role="contentinfo">
+    <footer class="footer mt-auto py-3 dark-bg">
         <div class="container">
             <p class="m-0 text-center text-white">Made by Valleyberg</p>
             <nav class="social-links" aria-label="Social media links">
