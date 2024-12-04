@@ -42,6 +42,12 @@ body {
     width: 75%;
 }
 
+/* Base Html Logo-Image Style */
+.summarazorator-logo-image {
+    width: 32px;
+    height: 32px;
+}
+
 /* Core UI Components */
 .card {
     border: none;
