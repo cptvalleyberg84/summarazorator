@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             behavior: 'smooth',
             block: blockPosition
         });
-    }
-
+    };
 
 
     // Handle form submission collaboration form

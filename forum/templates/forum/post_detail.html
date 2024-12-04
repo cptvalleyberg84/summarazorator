@@ -140,9 +140,9 @@
     <!-- Please Log In Info -->
     {% if not user.is_authenticated %}
     <div class="alert alert-info">
-        <p>Please <a href="{% url 'account_login' %}" aria-label="Log in to your account">log in</a> or <a
+        <article>Please <a href="{% url 'account_login' %}" aria-label="Log in to your account">log in</a> or <a
                 href="{% url 'account_signup' %}" aria-label="Create a new account">register</a> to
-            post a comment.</p>
+            post a comment.</article>
     </div>
     {% endif %}
     {% if user.is_authenticated %}

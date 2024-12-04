@@ -127,7 +127,6 @@ WSGI_APPLICATION = 'summarazorator.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 if 'DEVELOPMENT' in os.environ:
-    print('Development environment')
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -135,14 +134,12 @@ if 'DEVELOPMENT' in os.environ:
         }
     }
 else:
-    print('Production environment')
     database_url = os.environ.get("DATABASE_URL")
     if database_url:
         DATABASES = {
             'default': dj_database_url.parse(database_url)
         }
     else:
-        print('DATABASE_URL not found, falling back to SQLite')
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
@@ -198,11 +195,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if 'DEVELOPMENT' in os.environ:
     # Use default file storage in development
-    print('Using default static/media storage')
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 else:
     # Use Cloudinary storage in production, but only for media files
-    print('Using Cloudinary storage for media files')
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     # Use WhiteNoise for static files in production
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
