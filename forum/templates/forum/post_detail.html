@@ -41,12 +41,13 @@
 </article>
 
 <article class="container">
+    <h2 class="visually-hidden">Post Content</h2>
     <div class="row">
         <div class="col card mb-4 mt-3 left top">
             <div class="card-body">
-                <p class="card-text">
+                <div class="card-text">
                     {{ post.post_content | safe }}
-                </p>
+                </div>
                 {% if user.is_authenticated and post.post_author == user %}
                 <div class="mt-3 text-end">
                     <a href="{% url 'post_edit' post.post_slug %}" class="btn btn-edit" aria-label="Edit this post">
@@ -289,8 +290,8 @@
                 <form method="post" action="{% url 'comment_edit' post.post_slug comment.id %}">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="comment{{ comment.id }}" class="form-label">Comment:</label>
-                        <textarea class="form-control" id="comment{{ comment.id }}" name="comment_body"
+                        <label for="comment-edit{{ comment.id }}" class="form-label">Comment:</label>
+                        <textarea class="form-control" id="comment-edit{{ comment.id }}" name="comment_body"
                             rows="3">{{ comment.comment_body }}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" aria-label="Save changes to comment">Save

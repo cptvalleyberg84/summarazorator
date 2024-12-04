@@ -2,10 +2,10 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<main class="container">
-    <section class="row">
+<div class="container">
+    <div class="row">
         <article class="col-md-8 offset-md-2">
-            <h1>Create New Post</h1>
+            <h2>Create New Post</h2>
             <form method="POST" enctype="multipart/form-data" id="create-post-form"
                 aria-label="Create new forum post form">
                 {% csrf_token %}
@@ -15,7 +15,7 @@
                 </button>
             </form>
         </article>
-    </section>
-</main>
+    </div>
+</div>
 
 {% endblock %}
