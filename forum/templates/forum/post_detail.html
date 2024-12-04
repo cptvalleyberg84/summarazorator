@@ -20,13 +20,13 @@
                         {% endif %}
                         <a href="{% url 'view_profile' post.post_author.username %}"
                             aria-label="View {{ post.post_author.username }}'s profile">{{ post.post_author }}</a>
-                        <div class="post-timestamps">
-                            <div>Created: {{ post.post_created_on }}</div>
-                            {% if post.post_updated_at|date:"U" > post.post_created_on|date:"U" %}
-                            <div class="text-muted">Last edited: {{ post.post_updated_at }}</div>
-                            {% endif %}
-                        </div>
                     </span>
+                    <div class="post-timestamps">
+                        <div>Created: {{ post.post_created_on }}</div>
+                        {% if post.post_updated_at|date:"U" > post.post_created_on|date:"U" %}
+                        <div class="text-muted">Last edited: {{ post.post_updated_at }}</div>
+                        {% endif %}
+                    </div>
                 </p>
             </div>
             <div class="col-md-6 masthead-image">
@@ -42,7 +42,7 @@
 
 <article class="container">
     <div class="row">
-        <div class="col card mb-4  mt-3 left  top">
+        <div class="col card mb-4 mt-3 left top">
             <div class="card-body">
                 <p class="card-text">
                     {{ post.post_content | safe }}
@@ -109,13 +109,13 @@
         <div class="col-6 text-center">
             <h2 class="text-success">
                 <i class="far fa-thumbs-up"></i>
-                Positive Comments: <span>{{ comments|filter_positive|length }}
+                Positive Comments: <span>{{ comments|filter_positive|length }}</span>
             </h2>
         </div>
         <div class="col-6 text-center">
             <h2 class="text-danger">
                 <i class="far fa-thumbs-down"></i>
-                Negative Comments: <span>{{ comments|filter_negative|length }}
+                Negative Comments: <span>{{ comments|filter_negative|length }}</span>
             </h2>
         </div>
     </div>
@@ -179,7 +179,7 @@
                         <div class="comment" id="comment{{ comment.id }}">
                             <div class="comment-body">{{ comment.comment_body|linebreaks }}</div>
                             <div class="comment-meta">
-                                <span class="profile-pic-wrapper">
+                                <div class="profile-pic-wrapper">
                                     <a href="{% url 'view_profile' comment.comment_author.username %}"
                                         aria-label="View {{ comment.comment_author.username }}'s profile">
                                         {% if "static/images/default.png" in comment.comment_author.profiler.profile_image.url %}
@@ -191,7 +191,7 @@
                                         {% endif %}
                                         {{ comment.comment_author }}
                                     </a>
-                                </span>
+                                </div>
                                 <div class="post-timestamps">
                                     <div>Posted on {{ comment.comment_created_on }}</div>
                                     {% if comment.comment_updated_at|date:"U" > comment.comment_created_on|date:"U" %}
@@ -232,7 +232,7 @@
                         <div class="comment" id="comment{{ comment.id }}">
                             <div class="comment-body">{{ comment.comment_body|linebreaks }}</div>
                             <div class="comment-meta">
-                                <span class="profile-pic-wrapper">
+                                <div class="profile-pic-wrapper">
                                     <a href="{% url 'view_profile' comment.comment_author.username %}"
                                         aria-label="View {{ comment.comment_author.username }}'s profile">
                                         {% if "static/images/default.png" in comment.comment_author.profiler.profile_image.url %}
@@ -244,7 +244,7 @@
                                         {% endif %}
                                         {{ comment.comment_author }}
                                     </a>
-                                </span>
+                                </div>
                                 <div class="post-timestamps">
                                     <div>Posted on {{ comment.comment_created_on }}</div>
                                     {% if comment.comment_updated_at|date:"U" > comment.comment_created_on|date:"U" %}

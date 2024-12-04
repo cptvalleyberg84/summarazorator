@@ -3,19 +3,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<section class="container mt-5">
+<div class="container mt-5">
     <section class="row">
         <div class="col-12 col-md-4 text-center">
             <img src="{% static 'images/rzrtr-logo.jpg' %}" class="summarazorator-logo" alt="Summarazorator Logo">
         </div>
         <article class="col-12 col-md-8">
-            {% if about %}
             <h1>{{ about.about_title }}</h1>
             <div>{{ about.about_content | safe }}</div>
-            {% else %}
-            <h1>Welcome to Summarazorator</h1>
-            <p>Content coming soon...</p>
-            {% endif %}
         </article>
     </section>
     <aside class="row">
@@ -39,5 +34,5 @@
             </form>
         </div>
     </section>
-</section>
+</div>
 {% endblock content %}

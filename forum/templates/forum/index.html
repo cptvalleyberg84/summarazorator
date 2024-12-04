@@ -4,7 +4,7 @@
 {% load custom_filters %}
 
 <!-- index.html content starts here -->
-<section class="container-fluid">
+<div class="container-fluid">
     <div class="row">
         <!-- Blog Entries Column -->
         <div class="col-12 mt-3 left">
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <a href="{% url 'post_detail' post.post_slug %}" class="post-link"
-                                aria-label="Read full post titled {{ post.post_title }}">
+                                aria-label="Read full post titled">
                                 <h2 class="card-title">{{ post.post_title }}</h2>
                                 <p class="card-text">{{ post.post_excerpt }}</p>
                             </a>
@@ -55,7 +55,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <hr />
+                            <hr>
                             <p class="card-text text-muted h6">{{ post.post_created_on }}</p>
                         </div>
                     </div>
@@ -82,6 +82,6 @@
         </ul>
     </nav>
     {% endif %}
-</section>
+</div>
 <!-- index.html content ends here -->
 {% endblock %}
